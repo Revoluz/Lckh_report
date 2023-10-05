@@ -71,9 +71,9 @@ class LckhAdminController extends Controller
         ]);
 
         if ($lckh) {
-            return redirect()->route('lckh.index')->with('success', 'Data LCKH berhasil ditambahkan!');
+            return redirect()->route('lckh.index')->with('success', 'Data Dokumen LCKH berhasil ditambahkan!');
         } else {
-            return redirect()->back()->with('error', 'Data LCKH ditambahkan!');
+            return redirect()->back()->with('error', 'Data Dokumen LCKH ditambahkan!');
         }
     }
 
@@ -142,7 +142,7 @@ class LckhAdminController extends Controller
         $lckh->save();
 
         if ($lckh->save()) {
-            return redirect()->route('lckh.index')->with('success', 'Dokumen berhasil diupdate!');
+            return redirect()->route('lckh.index')->with('success', 'Dokumen LCKH berhasil diupdate!');
         } else {
             return redirect()->back()->with('error', 'Dokumen LCKH gagal diupdate!');
         }
@@ -155,6 +155,6 @@ class LckhAdminController extends Controller
     {
         User::destroy($lckh->id);
         $lckh->delete();
-        return redirect()->route('lckh.index')->with('success', 'Berhasil Menghapus data Dokument LCKH');
+        return redirect()->route('lckh.index')->with('success', 'Berhasil Menghapus Dokumen LCKH');
     }
 }

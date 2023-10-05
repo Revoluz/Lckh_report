@@ -151,11 +151,13 @@
                                                     </a>
                                                 </td>
                                                 <td>{{ $data->tanggal_upload }}</td>
-                                                <td><a href="{{ route('listLCKH.show', ['lckh' => $data->id]) }}">
+                                                <td>
+                                                    <a href="{{ route('listLCKH.show', ['lckh' => $data->id]) }}">
                                                         <button type="button" class="btn btn-info">
                                                             <i class="fas fa-eye"></i>
                                                         </button>
-                                                    </a></td>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @empty
                                             <p>No Data</p>

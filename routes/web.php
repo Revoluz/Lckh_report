@@ -7,6 +7,7 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ListUploadLCKHdminController;
 use App\Http\Controllers\ListUploadLCKHAdminController;
 use App\Http\Controllers\RecapDataAdminController;
+use App\Http\Controllers\WorkPlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +27,24 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['Administrator'])->group(function () {
         Route::resource('/admin/lckh', LckhAdminController::class)->names(['index' => 'lckh.index', 'create' => 'lckh.create', 'store' => 'lckh.store', 'show' => 'lckh.show', 'edit' => 'lckh.edit', 'update' => 'lckh.update', 'destroy' => 'lckh.destroy']);
         Route::resource('/admin/user', UserAdminController::class)->names(['index' => 'user.index', 'create' => 'user.create', 'store' => 'user.store', 'update' => 'user.update', 'destroy' => 'user.destroy']);
-        Route::get('admin/user/{nip}', [
-            UserAdminController::class, 'show'
-        ])->name('user.show');
+        // Route::get('admin/user/{nip}', [
+        //     UserAdminController::class, 'show'
+        // ])->name('user.show');
         Route::get('admin/user/{nip}', [UserAdminController::class, 'show'])->name('user.show');
         Route::get('admin/user/{nip}/edit', [UserAdminController::class, 'edit'])->name('user.edit');
         Route::put('admin/change-password/{user}', [UserAdminController::class, 'changePassword'])->name('change.Password');
         Route::get('admin/list-upload-lckh', [ListUploadLCKHAdminController::class, 'index'])->name('listLCKH.index');
-        Route::get('admin/list-upload-lckh/{lckh}', [ListUploadLCKHAdminController::class, 'show'])->name('listLCKH.show');
-        Route::get('admin/list-upload-lckh/filter', [ListUploadLCKHAdminController::class, 'filter'])->name('listLCKH.filter');
-        Route::get('admin/rekap-data', [RecapDataAdminController::class, 'index'])->name('recapData.index');
+        Route::get('/admin/list-upload-lckh/{lckh}', [ListUploadLCKHAdminController::class, 'show'])->name('listLCKH.show');
+        Route::get('/admin/list-upload-lckh/filter', [ListUploadLCKHAdminController::class, 'filter'])->name('listLCKH.filter');
+        Route::get('/admin/rekap-data', [RecapDataAdminController::class, 'index'])->name('recapData.index');
+        Route::resource('/admin/tempat-tugas', WorkPlaceController::class)
+            ->names([
+                'index' => 'workPlace.index',
+                'create' => 'workPlace.create',
+                'store' => 'workPlace.store',
+                'show' => 'workPlace.show',
+                'update' => 'workPlace.update',
+                'destroy' => 'workPlace.destroy',
+            ])->parameter('tempat-tugas', 'work_place');
     });
 });
