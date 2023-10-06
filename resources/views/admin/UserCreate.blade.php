@@ -55,7 +55,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Tambah User</h3>
                             </div>
-                            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('userAdmin.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body d-flex flex-wrap">
                                     <div class="form-group col-lg-6">

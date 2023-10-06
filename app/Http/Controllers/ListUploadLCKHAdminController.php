@@ -63,7 +63,6 @@ class ListUploadLCKHAdminController extends Controller
         if ($nama) {
             $query->where('user_id', $nama);
         }
-
         $lckh_reports = $query->get();
         foreach ($lckh_reports as $data) {
             $data->nama_bulan  = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));

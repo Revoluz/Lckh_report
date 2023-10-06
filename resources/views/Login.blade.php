@@ -57,13 +57,13 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control @error('nip') is-invalid @enderror" name="password"
-                            placeholder="Password" />
+                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                            name="password" placeholder="Password" />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
-                            @error('nip')
+                            @error('password')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

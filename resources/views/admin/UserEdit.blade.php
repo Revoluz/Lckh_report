@@ -55,7 +55,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Update User</h3>
                             </div>
-                            <form action="{{ route('user.update', ['user' => $user->id]) }}" method="POST"
+                            <form action="{{ route('userAdmin.update', ['user' => $user->id]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @method('put')
                                 @csrf

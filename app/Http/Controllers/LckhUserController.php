@@ -6,9 +6,10 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Lckh_reports;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class LckhAdminController extends Controller
+class LckhUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class LckhAdminController extends Controller
             $data->tanggal_upload = $tanggal_upload;
         }
 
-        return view('admin.LCKHList', [
+        return view('user.LCKHList', [
             'lckh' => $lckh,
         ]);
     }
@@ -33,7 +34,7 @@ class LckhAdminController extends Controller
      */
     public function create()
     {
-        return view('admin.LCKHCreate', [
+        return view('user.LCKHCreate', [
             'users' => User::all(),
         ]);
     }
@@ -45,13 +46,11 @@ class LckhAdminController extends Controller
     {
         // Lakukan validasi data input
         $rules = [
-            'nama' => 'required',
             'laporan_bulan' => 'required|date_format:Y-m',
             'upload_document' => 'required|url',
         ];
 
         $messages = [
-            'nama.required' => 'Nama wajib diisi.',
             'laporan_bulan.required' => 'Laporan Bulan laporan wajib diisi.',
             'laporan_bulan.date_format' => 'Format Laporan Bulan tidak valid.',
             'upload_document.required' => 'Dokumen wajib diupload.',
@@ -63,15 +62,14 @@ class LckhAdminController extends Controller
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
         $lckh = Lckh_reports::create([
-            'user_id' => $validateData['nama'],
-            // 'user_id' => Auth::id(),
+            'user_id' => Auth::id(),
             'upload_document' => $validateData['upload_document'],
             'monthly_report' => $date,
             'upload_date' => Carbon::now()->format('Y-m-d'),
         ]);
 
         if ($lckh) {
-            return redirect()->route('lckhAdmin.index')->with('success', 'Data Dokumen LCKH berhasil ditambahkan!');
+            return redirect()->route('lckhUser.index')->with('success', 'Data Dokumen LCKH berhasil ditambahkan!');
         } else {
             return redirect()->back()->with('error', 'Data Dokumen LCKH ditambahkan!');
         }
@@ -83,7 +81,7 @@ class LckhAdminController extends Controller
     public function show(Lckh_reports $lckh)
     {
         $nama_bulan = ucfirst(Carbon::parse($lckh->monthly_report)->locale('id')->isoFormat('YYYY MMMM'));
-        return view('admin.LCKHShow', [
+        return view('user.LCKHShow', [
             'lckh' => $lckh,
             'nama_bulan' => $nama_bulan,
         ]);
@@ -102,7 +100,7 @@ class LckhAdminController extends Controller
         // Ubah format tanggal
         $month = $month->format('Y-m');
 
-        return view('admin.LCKHEdit', [
+        return view('user.LCKHEdit', [
             'users' => User::all(),
             'lckh' => $lckh,
             'monthly_report' => $month,
@@ -115,13 +113,11 @@ class LckhAdminController extends Controller
     public function update(Request $request, Lckh_reports $lckh)
     {
         $rules = [
-            'nama' => 'required',
             'laporan_bulan' => 'required|date_format:Y-m',
             'upload_document' => 'required|url',
         ];
 
         $messages = [
-            'nama.required' => 'Nama wajib diisi.',
             'laporan_bulan.required' => 'Laporan Bulan laporan wajib diisi.',
             'laporan_bulan.date_format' => 'Format Laporan Bulan tidak valid.',
             'upload_document.required' => 'Dokumen wajib diupload.',
@@ -130,14 +126,13 @@ class LckhAdminController extends Controller
         $validateData = $request->validate($rules, $messages);
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
-        // $user->save();
-        $lckh->user_id = $validateData['nama'];
+        $lckh->user_id = Auth::id();
         $lckh->upload_document = $validateData['upload_document'];
         $lckh->monthly_report = $date;
         $lckh->save();
 
         if ($lckh->save()) {
-            return redirect()->route('lckhAdmin.index')->with('success', 'Dokumen LCKH berhasil diupdate!');
+            return redirect()->route('lckhUser.index')->with('success', 'Dokumen LCKH berhasil diupdate!');
         } else {
             return redirect()->back()->with('error', 'Dokumen LCKH gagal diupdate!');
         }
@@ -150,6 +145,6 @@ class LckhAdminController extends Controller
     {
         User::destroy($lckh->id);
         $lckh->delete();
-        return redirect()->route('lckhAdmin.index')->with('success', 'Berhasil Menghapus Dokumen LCKH');
+        return redirect()->route('lckhUser.index')->with('success', 'Berhasil Menghapus Dokumen LCKH');
     }
 }

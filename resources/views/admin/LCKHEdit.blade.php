@@ -52,7 +52,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Upload LCKH</h3>
                             </div>
-                            <form action="{{ route('lckh.update', ['lckh' => $lckh->id]) }}" method="POST">
+                            <form action="{{ route('lckhAdmin.update', ['lckh' => $lckh->id]) }}" method="POST">
                                 @csrf
                                 @method('put')
                                 <div class="card-body d-flex flex-wrap">

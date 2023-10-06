@@ -15,7 +15,7 @@
         </a>
 
         <!-- Sidebar -->
-        @include('partials.admin.sidebar')
+        @include('partials.user.sidebar')
 
         <!-- /.sidebar -->
     </aside>
@@ -52,29 +52,9 @@
                             <div class="card-header">
                                 <h3 class="card-title">Upload LCKH</h3>
                             </div>
-                            <form action="{{ route('lckhAdmin.store') }}" method="POST">
+                            <form action="{{ route('lckhUser.store') }}" method="POST">
                                 @csrf
                                 <div class="card-body d-flex flex-wrap">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="nama">Nama</label>
-                                            <select class="form-control select2bs4 @error('nama')is-invalid @enderror"
-                                                value="{{ old('nama') }}" style="width: 100%" name="nama"
-                                                id="nama">
-                                                <option selected="selected" disabled @readonly(true)>
-                                                    Masukan Nama
-                                                </option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('nama')
-                                                <div id="validationServer04Feedback" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <div class="form-group col-lg-6">
                                         <label for="laporan_bulan">Laporan Bulan</label>
                                         <input type="month" value="{{ old('laporan_bulan') }}"

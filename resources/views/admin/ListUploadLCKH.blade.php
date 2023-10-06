@@ -59,7 +59,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Filter LCKH</h3>
                                 <br />
-                                <form method="get" action="{{ route('listLCKH.filter') }}">
+                                <form method="get" action="{{ route('listLCKHAdmin.filter') }}">
                                     @csrf
                                     <div class="d-md-flex" style="gap: 8px">
                                         <div class="flex-grow-1 form-group">
@@ -111,7 +111,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             Filter
                                         </button>
-                                        <a href="{{ route('listLCKH.index') }}">
+                                        <a href="{{ route('listLCKHAdmin.index') }}">
                                             <button type="button" class="btn btn-primary">
                                                 Reset
                                             </button></a>
@@ -152,7 +152,7 @@
                                                 </td>
                                                 <td>{{ $data->tanggal_upload }}</td>
                                                 <td>
-                                                    <a href="{{ route('listLCKH.show', ['lckh' => $data->id]) }}">
+                                                    <a href="{{ route('listLCKHAdmin.show', ['lckh' => $data->id]) }}">
                                                         <button type="button" class="btn btn-info">
                                                             <i class="fas fa-eye"></i>
                                                         </button>

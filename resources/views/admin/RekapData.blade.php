@@ -4,9 +4,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
 @endsection
 @section('content')
     <!-- Main Sidebar Container -->
@@ -75,7 +72,6 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->date }}</td>
                                                 <td>{{ $item->count }}</td>
-                                                <td>{{ $item->jumlah_upload }}</td>
                                             </tr>
                                         @endforeach
 
@@ -144,6 +140,7 @@
 @endsection
 @section('plugins')
     <!-- DataTables  & Plugins -->
+    <!-- DataTables  & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -161,8 +158,11 @@
             $("#example1")
                 .DataTable({
                     responsive: true,
-                    lengthChange: false,
+                    lengthChange: true,
                     autoWidth: false,
+                    paging: true,
+                    pageLength: 10, // menentukan jumlah data per halaman
+                    pagingType: 'simple_numbers', // menambahkan panah navigasi
                     buttons: ["copy", "csv", "excel", "pdf", "print"],
                 })
                 .buttons()
@@ -171,9 +171,13 @@
             $("#example2")
                 .DataTable({
                     responsive: true,
-                    lengthChange: false,
+                    lengthChange: true,
                     autoWidth: false,
+                    paging: true,
+                    pageLength: 10, // menentukan jumlah data per halaman
+                    pagingType: 'simple_numbers', // menambahkan panah navigasi
                     buttons: ["copy", "csv", "excel", "pdf", "print"],
+
                 })
                 .buttons()
                 .container()
@@ -181,17 +185,4 @@
         });
     </script>
     <!-- Select2 -->
-    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    <script>
-        $(function() {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-
-            //Initialize Select2 Elements
-            $(".select2bs4").select2({
-                theme: "bootstrap4",
-            });
-
-        });
-    </script>
 @endsection

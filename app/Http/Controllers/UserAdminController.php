@@ -91,7 +91,7 @@ class UserAdminController extends Controller
         // dd($user);
         // Jika data user berhasil disimpan, tampilkan pesan berhasil
         if ($user) {
-            return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
+            return redirect()->route('userAdmin.index')->with('success', 'User berhasil ditambahkan!');
         } else {
             // Jika data user gagal disimpan, tampilkan pesan gagal
             return redirect()->back()->with('error', 'User gagal ditambahkan!');
@@ -175,7 +175,7 @@ class UserAdminController extends Controller
         $user->role_id = $validateData['role'];
         $user->save();
         if ($user->save()) {
-            return redirect()->route('user.index')->with('success', 'User berhasil diupdate!');
+            return redirect()->route('userAdmin.index')->with('success', 'User berhasil diupdate!');
         } else {
             return redirect()->back()->with('error', 'User gagal diupdate!');
         }
@@ -191,7 +191,7 @@ class UserAdminController extends Controller
         }
         User::destroy($user->id);
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'Berhasil Menghapus data User');
+        return redirect()->route('userAdmin.index')->with('success', 'Berhasil Menghapus data User');
     }
 
     public function changePassword(Request $request, User $user)
@@ -203,7 +203,7 @@ class UserAdminController extends Controller
         $user->password = Hash::make($validateData['password']);
         $user->save();
         if ($user->save()) {
-            return redirect()->route('user.index')->with('success', 'Password berhasil diubah!');
+            return redirect()->route('userAdmin.index')->with('success', 'Password berhasil diubah!');
         } else {
             return redirect()->back()->with('error', 'Password gagal diubah!');
         }

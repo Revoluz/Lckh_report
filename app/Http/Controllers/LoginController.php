@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('admin.Login');
+        return view('Login');
     }
     public function authenticate(Request $request)
     {
@@ -23,20 +24,27 @@ class LoginController extends Controller
             return redirect()->intended($this->redirectTo());
             // return redirect()->intended('dashboard');
         }
-        return back()->with('loginError', 'Login failed!');
+        if (!Auth::attempt($credentials)) {
+            if ($user = User::where('nip', $request->nip)->first()) {
+                if ($user->status->status != 'Aktif') {
+                    return back()->with('loginError', 'Your account is inactive');
+                }
+            }
+            return back()->with('loginError', 'Login failed!');
+        }
     }
     protected function redirectTo()
     {
         $user = auth()->user();
-        if ($user->role->role == 'Administrator') {
+        if ($user->role->role == 'Administrator' && $user->status->status == 'Aktif') {
             return route(
-                'lckh.index'
+                'lckhAdmin.index'
             );
-        } elseif ($user->role->role == 'Pengawas' || $user->role->role == 'Kepala kantor') {
-            return route('lckh.index');
+        } elseif ($user->role->role == 'Pengawas' || $user->role->role == 'Kepala kantor' && $user->status->status == 'Aktif') {
+            return route('lckhAdmin.index');
             # code...
-        } elseif ($user->role->role == 'User') {
-            return route('lckh.index');
+        } elseif ($user->role->role == 'User' && $user->status->status == 'Aktif') {
+            return route('lckhUser.index');
         }
     }
     public function logout(Request $request)

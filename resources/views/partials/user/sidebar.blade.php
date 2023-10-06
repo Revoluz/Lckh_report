@@ -12,7 +12,7 @@
                     <p class="mb-1 text-center" style="color: #c2c7d0">
                         {{ auth()->user()->role->role }}
                     </p>
-                    <a href="{{ route('userAdmin.profile') }}">
+                    <a href="{{ route('user.profile') }}">
                         <button class="btn btn-primary btn-md w-100">
                             <b>Profile</b>
                         </button>
@@ -43,47 +43,13 @@
                         <h5 class="m-0">Menu</h5>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('lckhAdmin.index') }}"
-                            class="nav-link {{ Request::is('admin/lckh*') ? 'active' : '' }}">
+                        <a href="{{ route('lckhUser.index') }}"
+                            class="nav-link {{ Request::is('user/lckh*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-upload"></i>
                             <p>Upload LCKH</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('listLCKHAdmin.index') }}"
-                            class="nav-link {{ Request::is('admin/list-upload-lckh*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-list"></i>
-                            <p>List Upload LCKH</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('recapData.index') }}"
-                            class="nav-link {{ Request::is('admin/rekap-data*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-table"></i>
-                            <p>Rekap Data</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('userAdmin.index') }}"
-                            class="nav-link {{ Request::is('admin/user*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Daftar User</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('workPlace.index') }}"
-                            class="nav-link {{ Request::is('admin/tempat-tugas*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-map-marker-alt"></i>
-                            <p>Tempat Tugas</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('role.index') }}"
-                            class="nav-link {{ Request::is('admin/role*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user-tag"></i>
-                            <p>Role</p>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
