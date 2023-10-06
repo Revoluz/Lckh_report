@@ -130,11 +130,6 @@ class LckhAdminController extends Controller
         $validateData = $request->validate($rules, $messages);
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
-        // $user->name = $validateData['nama'];
-        // $user->email = $validateData['email'];
-        // $user->work_place_id = $validateData['tempat_tugas'];
-        // $user->status_id = $validateData['status'];
-        // $user->role_id = $validateData['role'];
         // $user->save();
         $lckh->user_id = $validateData['nama'];
         $lckh->upload_document = $validateData['upload_document'];

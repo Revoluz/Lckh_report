@@ -7,6 +7,7 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\ListUploadLCKHdminController;
 use App\Http\Controllers\ListUploadLCKHAdminController;
 use App\Http\Controllers\RecapDataAdminController;
+use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\WorkPlaceController;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
         //     UserAdminController::class, 'show'
         // ])->name('user.show');
         Route::get('admin/user/{nip}', [UserAdminController::class, 'show'])->name('user.show');
+        Route::get('admin/profile', [UserAdminController::class, 'profile'])->name('user.profile');
         Route::get('admin/user/{nip}/edit', [UserAdminController::class, 'edit'])->name('user.edit');
         Route::put('admin/change-password/{user}', [UserAdminController::class, 'changePassword'])->name('change.Password');
         Route::get('admin/list-upload-lckh', [ListUploadLCKHAdminController::class, 'index'])->name('listLCKH.index');
@@ -46,5 +48,7 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'workPlace.update',
                 'destroy' => 'workPlace.destroy',
             ])->parameter('tempat-tugas', 'work_place');
+        Route::get('/admin/role', [RoleAdminController::class, 'index'])->name('role.index');
+        Route::get('/admin/role/{role}', [RoleAdminController::class, 'show'])->name('role.show');
     });
 });

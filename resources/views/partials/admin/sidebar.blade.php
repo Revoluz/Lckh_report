@@ -2,16 +2,17 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-column">
                 <div class="image w-100 p-0">
-                    <img src="../../dist/img/user2-160x160.jpg" class="w-100 rounded" alt="User Image" />
+                    <img src="{{ asset('storage/images/user/' . auth()->user()->image) }}" class="w-100 rounded"
+                        alt="User Image" />
                 </div>
                 <div class="mx-2 my-2">
                     <a href="#" class="d-block text-center">
-                        <h5 class="m-0">Alexander Pierce</h5>
+                        <h5 class="m-0">{{ auth()->user()->name }}</h5>
                     </a>
                     <p class="mb-1 text-center" style="color: #c2c7d0">
-                        Administrator
+                        {{ auth()->user()->role->role }}
                     </p>
-                    <a href="profile.html">
+                    <a href="{{ route('user.profile') }}">
                         <button class="btn btn-primary btn-md w-100">
                             <b>Profile</b>
                         </button>
@@ -42,37 +43,43 @@
                         <h5 class="m-0">Menu</h5>
                     </li>
                     <li class="nav-item">
-                        <a href="uploadLCKH.html" class="nav-link active">
+                        <a href="{{ route('lckh.index') }}"
+                            class="nav-link {{ Request::is('admin/lckh*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-upload"></i>
                             <p>Upload LCKH</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="listUploadLCKH.html" class="nav-link">
+                        <a href="{{ route('listLCKH.index') }}"
+                            class="nav-link {{ Request::is('admin/list-upload-lckh*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-list"></i>
                             <p>List Upload LCKH</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="rekapData.html" class="nav-link">
+                        <a href="{{ route('recapData.index') }}"
+                            class="nav-link {{ Request::is('admin/rekap-data*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-table"></i>
                             <p>Rekap Data</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="daftarUser.html" class="nav-link">
+                        <a href="{{ route('user.index') }}"
+                            class="nav-link {{ Request::is('admin/user*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users"></i>
                             <p>Daftar User</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="tempatTugas.html" class="nav-link">
+                        <a href="{{ route('workPlace.index') }}"
+                            class="nav-link {{ Request::is('admin/tempat-tugas*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-map-marker-alt"></i>
                             <p>Tempat Tugas</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="role.html" class="nav-link">
+                        <a href="{{ route('role.index') }}"
+                            class="nav-link {{ Request::is('admin/role*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-tag"></i>
                             <p>Role</p>
                         </a>

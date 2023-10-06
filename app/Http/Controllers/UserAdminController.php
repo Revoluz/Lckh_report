@@ -208,4 +208,14 @@ class UserAdminController extends Controller
             return redirect()->back()->with('error', 'Password gagal diubah!');
         }
     }
+    public function profile()
+    {
+        $user = auth()->user();
+        if (!$user) {
+            abort(403);
+        }
+        return view('admin.Profile', [
+            'user' => $user,
+        ]);
+    }
 }
