@@ -131,8 +131,8 @@
                                             <th>Nama</th>
                                             <th>Tempat Tugas</th>
                                             <th>Laporan Bulan</th>
-                                            <th>Upload Dokumen</th>
                                             <th>Tanggal Upload</th>
+                                            <th>Upload Dokumen</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -144,13 +144,13 @@
                                                 <td>{{ $data->user->name }}</td>
                                                 <td>{{ $data->user->work_place->work_place }}</td>
                                                 <td>{{ $data->nama_bulan }}</td>
+                                                <td>{{ $data->tanggal_upload }}</td>
                                                 <td>
                                                     <a style="width: 280px;display:inline-block"
                                                         href="{{ $data->upload_document }}">
                                                         {{ $data->upload_document }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $data->tanggal_upload }}</td>
                                                 <td>
                                                     <a href="{{ route('listLCKHAdmin.show', ['lckh' => $data->id]) }}">
                                                         <button type="button" class="btn btn-info">
@@ -171,8 +171,8 @@
                                             <th>Nama</th>
                                             <th>Tempat Tugas</th>
                                             <th>Laporan Bulan</th>
-                                            <th>Upload Dokumen</th>
                                             <th>Tanggal Upload</th>
+                                            <th>Upload Dokumen</th>
                                             <th>Action</th>
 
                                         </tr>

@@ -1,12 +1,13 @@
 @extends('layout.main')
-
 @section('head')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
 @endsection
-
 @section('content')
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -18,27 +19,24 @@
         </a>
 
         <!-- Sidebar -->
-        @include('partials.admin.sidebar')
+        @include('partials.pengawas.sidebar')
 
         <!-- /.sidebar -->
     </aside>
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Upload LCKH</h1>
+                        <h1 class="m-0">List Upload LCKH</h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">
-                                Upload LCKH
-                            </li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">List Upload LCKH</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -59,22 +57,76 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">
-                                    Pelaporan LCKH
-                                </h3>
+                                <h3 class="card-title">Filter LCKH</h3>
+                                <br />
+                                <form method="get" action="{{ route('listLCKHPengawas.filter') }}">
+                                    @csrf
+                                    <div class="d-md-flex" style="gap: 8px">
+                                        <div class="flex-grow-1 form-group">
+                                            <label for="tahun">Tahun:</label>
+                                            <input type="number" min="2023" class="form-control" id="tahun"
+                                                name="tahun" />
+                                        </div>
+                                        <div class="flex-grow-2 form-group">
+                                            <label for="bulan">Bulan:</label>
+                                            <select class="custom-select select2bs4" id="bulan" name="bulan">
+                                                <option value="" selected>Bulan</option>
+                                                <option value="1">Januari</option>
+                                                <option value="2">Februari</option>
+                                                <option value="3">Maret</option>
+                                                <option value="4">April</option>
+                                                <option value="5">Mei</option>
+                                                <option value="6">Juni</option>
+                                                <option value="7">Juli</option>
+                                                <option value="8">Agustus</option>
+                                                <option value="9">September</option>
+                                                <option value="10">Oktober</option>
+                                                <option value="11">November</option>
+                                                <option value="12">Desember</option>
+                                            </select>
+                                        </div>
+                                        <div class="flex-grow-2 form-group">
+                                            <label for="tempat_tugas">Tempat Tugas:</label>
+                                            <select class="custom-select select2bs4" id="tempat_tugas" name="tempat_tugas">
+                                                <option @readonly(true) selected value="0">Tempat Tugas</option>
+                                                @foreach ($work_places as $work_place)
+                                                    <option value="{{ $work_place->id }}">{{ $work_place->work_place }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="flex-grow-1 form-group">
+                                            <label for="nama">Nama Pegawai:</label>
+                                            <select class="custom-select select2bs4" id="nama" name="nama">
+                                                <option @readonly(true) value="0">Nama</option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">
+                                            Filter
+                                        </button>
+                                        <a href="{{ route('listLCKHPengawas.index') }}">
+                                            <button type="button" class="btn btn-primary">
+                                                Reset
+                                            </button></a>
+                                    </div>
+                                </form>
                             </div>
+
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <a href="{{ route('lckhAdmin.create') }}">
-                                    <button type="button" class="btn btn-success mb-2 ml-auto">
-                                        Tambah Data LCKH
-                                        <i class="ml-1 fas fa-plus"></i>
-                                    </button>
-                                </a>
+                                <h3 class="card-title">List Upload LCKH</h3>
+                                <br />
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>NO</th>
                                             <th>NIP</th>
                                             <th>Nama</th>
                                             <th>Tempat Tugas</th>
@@ -85,48 +137,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($lckh as $data)
+                                        @forelse ($lckh_reports as $data)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->user->nip }}</td>
-                                                <td>
-                                                    {{ $data->user->name }}
-                                                </td>
+                                                <td>{{ $data->user->name }}</td>
                                                 <td>{{ $data->user->work_place->work_place }}</td>
-
                                                 <td>{{ $data->nama_bulan }}</td>
                                                 <td>{{ $data->tanggal_upload }}</td>
-                                                <td><a style="display: inline-block;width:250px"
-                                                        href="{{ $data->upload_document }} ">{{ $data->upload_document }}
+                                                <td>
+                                                    <a style="width: 280px;display:inline-block"
+                                                        href="{{ $data->upload_document }}">
+                                                        {{ $data->upload_document }}
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('lckhAdmin.show', ['lckh' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                        <a href="{{ route('lckhAdmin.edit', ['lckh' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-warning">
-                                                                <i class="fas fa-edit text-white"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('lckhAdmin.destroy', ['lckh' => $data->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
+                                                    <a href="{{ route('listLCKHPengawas.show', ['lckh' => $data->id]) }}">
+                                                        <button type="button" class="btn btn-info">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @empty
-                                            <p>No users</p>
+                                            <p>No Data</p>
                                         @endforelse
+
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -138,6 +174,7 @@
                                             <th>Tanggal Upload</th>
                                             <th>Upload Dokumen</th>
                                             <th>Action</th>
+
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -153,6 +190,7 @@
         </div>
         <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
 @endsection
 @section('plugins')
     <!-- DataTables  & Plugins -->
@@ -179,6 +217,7 @@
                     pageLength: 10, // menentukan jumlah data per halaman
                     pagingType: 'simple_numbers', // menambahkan panah navigasi
                     buttons: ["copy", "csv", "excel", "pdf", "print"],
+
                 })
                 .buttons()
                 .container()
@@ -190,6 +229,20 @@
                 autoWidth: false,
                 responsive: true,
             });
+        });
+    </script>
+    <!-- Select2 -->
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+
+            //Initialize Select2 Elements
+            $(".select2bs4").select2({
+                theme: "bootstrap4",
+            });
+
         });
     </script>
 @endsection

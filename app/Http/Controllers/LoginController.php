@@ -40,8 +40,11 @@ class LoginController extends Controller
             return route(
                 'lckhAdmin.index'
             );
-        } elseif ($user->role->role == 'Pengawas' || $user->role->role == 'Kepala kantor' && $user->status->status == 'Aktif') {
+        } elseif ($user->role->role == 'Kepala kantor' && $user->status->status == 'Aktif') {
             return route('lckhAdmin.index');
+            # code...
+        } elseif ($user->role->role == 'Pengawas' && $user->status->status == 'Aktif') {
+            return route('lckhPengawas.index');
             # code...
         } elseif ($user->role->role == 'User' && $user->status->status == 'Aktif') {
             return route('lckhUser.index');

@@ -8,9 +8,13 @@ use App\Http\Controllers\LckhAdminController;
 use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WorkPlaceController;
+use App\Http\Controllers\LckhPengawasController;
+use App\Http\Controllers\UserPengawasController;
 use App\Http\Controllers\RecapDataAdminController;
+use App\Http\Controllers\RecapDataPengawasController;
 use App\Http\Controllers\ListUploadLCKHdminController;
 use App\Http\Controllers\ListUploadLCKHAdminController;
+use App\Http\Controllers\ListUploadLCKHPengawasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/user/{nip}', [UserAdminController::class, 'show'])->name('userAdmin.show');
         Route::get('/admin/profile', [UserAdminController::class, 'profile'])->name('userAdmin.profile');
         Route::get('/admin/user/{nip}/edit', [UserAdminController::class, 'edit'])->name('userAdmin.edit');
-        Route::put('/admin/change-password/{user}', [UserAdminController::class, 'changePassword'])->name('change.Password');
+        Route::put('/admin/change-password/{user}', [UserAdminController::class, 'changePassword'])->name('changeAdmin.Password');
         Route::get('/admin/list-upload-lckh', [ListUploadLCKHAdminController::class, 'index'])->name('listLCKHAdmin.index');
         Route::get('/admin/list-upload-lckh/{lckh}', [ListUploadLCKHAdminController::class, 'show'])->name('listLCKHAdmin.show');
         Route::get('/admin/list-upload-lckh/filter/lckh', [ListUploadLCKHAdminController::class, 'filter'])->name('listLCKHAdmin.filter');
@@ -56,5 +60,15 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['User'])->group(function () {
         Route::resource('/user/lckh', LckhUserController::class)->names(['index' => 'lckhUser.index', 'create' => 'lckhUser.create', 'store' => 'lckhUser.store', 'show' => 'lckhUser.show', 'edit' => 'lckhUser.edit', 'update' => 'lckhUser.update', 'destroy' => 'lckhUser.destroy']);
         Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+        Route::put('/user/change-password/{user}', [UserController::class, 'changePassword'])->name('changeUser.Password');
+    });
+    Route::middleware(['Pengawas'])->group(function () {
+        Route::resource('/pengawas/lckh', LckhPengawasController::class)->names(['index' => 'lckhPengawas.index', 'create' => 'lckhPengawas.create', 'store' => 'lckhPengawas.store', 'show' => 'lckhPengawas.show', 'edit' => 'lckhPengawas.edit', 'update' => 'lckhPengawas.update', 'destroy' => 'lckhPengawas.destroy']);
+        Route::get('/pengawas/list-upload-lckh', [ListUploadLCKHPengawasController::class, 'index'])->name('listLCKHPengawas.index');
+        Route::get('/pengawas/list-upload-lckh/{lckh}', [ListUploadLCKHPengawasController::class, 'show'])->name('listLCKHPengawas.show');
+        Route::get('/pengawas/list-upload-lckh/filter/lckh', [ListUploadLCKHPengawasController::class, 'filter'])->name('listLCKHPengawas.filter');
+        Route::get('/pengawas/rekap-data', [RecapDataPengawasController::class, 'index'])->name('recapDataPengawas.index');
+        Route::get('/pengawas/profile', [UserPengawasController::class, 'profile'])->name('userPengawas.profile');
+        Route::put('/pengawas/change-password/{user}', [UserPengawasController::class, 'changePassword'])->name('changePengawas.Password');
     });
 });

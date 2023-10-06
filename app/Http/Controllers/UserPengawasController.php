@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class UserPengawasController extends Controller
 {
     public function profile()
     {
@@ -15,7 +15,7 @@ class UserController extends Controller
         if (!$user) {
             abort(403);
         }
-        return view('user.Profile', [
+        return view('pengawas.Profile', [
             'user' => $user,
         ]);
     }
@@ -28,7 +28,7 @@ class UserController extends Controller
         $user->password = Hash::make($validateData['password']);
         $user->save();
         if ($user->save()) {
-            return redirect()->route('user.profile')->with('success', 'Password berhasil diubah!');
+            return redirect()->route('userPengawas.profile')->with('success', 'Password berhasil diubah!');
         } else {
             return redirect()->back()->with('error', 'Password gagal diubah!');
         }

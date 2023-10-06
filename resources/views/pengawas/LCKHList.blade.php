@@ -18,7 +18,7 @@
         </a>
 
         <!-- Sidebar -->
-        @include('partials.admin.sidebar')
+        @include('partials.pengawas.sidebar')
 
         <!-- /.sidebar -->
     </aside>
@@ -65,7 +65,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <a href="{{ route('lckhAdmin.create') }}">
+                                <a href="{{ route('lckhPengawas.create') }}">
                                     <button type="button" class="btn btn-success mb-2 ml-auto">
                                         Tambah Data LCKH
                                         <i class="ml-1 fas fa-plus"></i>
@@ -93,27 +93,26 @@
                                                     {{ $data->user->name }}
                                                 </td>
                                                 <td>{{ $data->user->work_place->work_place }}</td>
-
                                                 <td>{{ $data->nama_bulan }}</td>
                                                 <td>{{ $data->tanggal_upload }}</td>
+
                                                 <td><a style="display: inline-block;width:250px"
                                                         href="{{ $data->upload_document }} ">{{ $data->upload_document }}
-                                                    </a>
-                                                </td>
+                                                    </a></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="{{ route('lckhAdmin.show', ['lckh' => $data->id]) }}">
+                                                        <a href="{{ route('lckhPengawas.show', ['lckh' => $data->id]) }}">
                                                             <button type="button" class="btn btn-info">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
                                                         </a>
-                                                        <a href="{{ route('lckhAdmin.edit', ['lckh' => $data->id]) }}">
+                                                        <a href="{{ route('lckhPengawas.edit', ['lckh' => $data->id]) }}">
                                                             <button type="button" class="btn btn-warning">
                                                                 <i class="fas fa-edit text-white"></i>
                                                             </button>
                                                         </a>
                                                         <form
-                                                            action="{{ route('lckhAdmin.destroy', ['lckh' => $data->id]) }}"
+                                                            action="{{ route('lckhPengawas.destroy', ['lckh' => $data->id]) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('delete')
