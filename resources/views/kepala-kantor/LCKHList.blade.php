@@ -18,7 +18,7 @@
         </a>
 
         <!-- Sidebar -->
-        @include('partials.admin.sidebar')
+        @include('partials.kepala-kantor.sidebar')
 
         <!-- /.sidebar -->
     </aside>
@@ -65,7 +65,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <a href="{{ route('lckhAdmin.create') }}">
+                                <a href="{{ route('lckhKepalaKantor.create') }}">
                                     <button type="button" class="btn btn-success mb-2 ml-auto">
                                         Tambah Data LCKH
                                         <i class="ml-1 fas fa-plus"></i>
@@ -93,27 +93,28 @@
                                                     {{ $data->user->name }}
                                                 </td>
                                                 <td>{{ $data->user->work_place->work_place }}</td>
-
                                                 <td>{{ $data->nama_bulan }}</td>
                                                 <td>{{ $data->tanggal_upload }}</td>
+
                                                 <td><a style="display: inline-block;width:250px"
                                                         href="{{ $data->upload_document }} ">{{ $data->upload_document }}
-                                                    </a>
-                                                </td>
+                                                    </a></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="{{ route('lckhAdmin.show', ['lckh' => $data->id]) }}">
+                                                        <a
+                                                            href="{{ route('lckhKepalaKantor.show', ['lckh' => $data->id]) }}">
                                                             <button type="button" class="btn btn-info">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
                                                         </a>
-                                                        <a href="{{ route('lckhAdmin.edit', ['lckh' => $data->id]) }}">
+                                                        <a
+                                                            href="{{ route('lckhKepalaKantor.edit', ['lckh' => $data->id]) }}">
                                                             <button type="button" class="btn btn-warning">
                                                                 <i class="fas fa-edit text-white"></i>
                                                             </button>
                                                         </a>
                                                         <form
-                                                            action="{{ route('lckhAdmin.destroy', ['lckh' => $data->id]) }}"
+                                                            action="{{ route('lckhKepalaKantor.destroy', ['lckh' => $data->id]) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('delete')
@@ -178,7 +179,6 @@
                     paging: true,
                     pageLength: 10, // menentukan jumlah data per halaman
                     pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    // buttons: ["copy", "csv", "excel", "pdf", "print", "colVis"],
                     buttons: ["copy", "csv", "excel", "pdf", "print"],
                 })
                 .buttons()

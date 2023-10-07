@@ -11,10 +11,13 @@ use App\Http\Controllers\WorkPlaceController;
 use App\Http\Controllers\LckhPengawasController;
 use App\Http\Controllers\UserPengawasController;
 use App\Http\Controllers\RecapDataAdminController;
+use App\Http\Controllers\LckhKepalaKantorController;
+use App\Http\Controllers\UserKepalaKantorController;
 use App\Http\Controllers\RecapDataPengawasController;
-use App\Http\Controllers\ListUploadLCKHdminController;
 use App\Http\Controllers\ListUploadLCKHAdminController;
+use App\Http\Controllers\RecapDataKepalaKantorController;
 use App\Http\Controllers\ListUploadLCKHPengawasController;
+use App\Http\Controllers\ListUploadLCKHKepalaKantorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,5 +73,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pengawas/rekap-data', [RecapDataPengawasController::class, 'index'])->name('recapDataPengawas.index');
         Route::get('/pengawas/profile', [UserPengawasController::class, 'profile'])->name('userPengawas.profile');
         Route::put('/pengawas/change-password/{user}', [UserPengawasController::class, 'changePassword'])->name('changePengawas.Password');
+    });
+    Route::middleware(['Kepala kantor'])->group(function () {
+        Route::resource('/kepala-kantor/lckh', LckhKepalaKantorController::class)->names(['index' => 'lckhKepalaKantor.index', 'create' => 'lckhKepalaKantor.create', 'store' => 'lckhKepalaKantor.store', 'show' => 'lckhKepalaKantor.show', 'edit' => 'lckhKepalaKantor.edit', 'update' => 'lckhKepalaKantor.update', 'destroy' => 'lckhKepalaKantor.destroy']);
+        Route::get('/kepala-kantor/list-upload-lckh', [ListUploadLCKHKepalaKantorController::class, 'index'])->name('listLCKHKepalaKantor.index');
+        Route::get('/kepala-kantor/list-upload-lckh/{lckh}', [ListUploadLCKHKepalaKantorController::class, 'show'])->name('listLCKHKepalaKantor.show');
+        Route::get('/kepala-kantor/list-upload-lckh/filter/lckh', [ListUploadLCKHKepalaKantorController::class, 'filter'])->name('listLCKHKepalaKantor.filter');
+        Route::get('/kepala-kantor/rekap-data', [RecapDataKepalaKantorController::class, 'index'])->name('recapDataKepalaKantor.index');
+        Route::get('/kepala-kantor/profile', [UserKepalaKantorController::class, 'profile'])->name('userKepalaKantor.profile');
+        Route::put('/kepala-kantor/change-password/{user}', [UserKepalaKantorController::class, 'changePassword'])->name('changeKepalaKantor.Password');
     });
 });

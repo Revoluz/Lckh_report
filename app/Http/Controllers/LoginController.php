@@ -41,7 +41,7 @@ class LoginController extends Controller
                 'lckhAdmin.index'
             );
         } elseif ($user->role->role == 'Kepala kantor' && $user->status->status == 'Aktif') {
-            return route('lckhAdmin.index');
+            return route('lckhKepalaKantor.index');
             # code...
         } elseif ($user->role->role == 'Pengawas' && $user->status->status == 'Aktif') {
             return route('lckhPengawas.index');

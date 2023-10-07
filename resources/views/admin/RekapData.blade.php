@@ -62,7 +62,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Monthly Report</th>
+                                            <th>Upload Bulan</th>
                                             <th>Jumlah Upload LCKH</th>
                                         </tr>
                                     </thead>
@@ -79,7 +79,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Monthly Report</th>
+                                            <th>Upload Bulan</th>
                                             <th>Jumlah Upload LCKH</th>
                                         </tr>
                                     </tfoot>
