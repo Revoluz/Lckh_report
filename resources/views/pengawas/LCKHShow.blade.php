@@ -82,6 +82,7 @@
                                     <h5><b>Laporan Bulan : </b></h5>
                                     <h5>{{ $nama_bulan }}</h5>
                                 </div>
+
                             </div>
                         </div>
                     </div>

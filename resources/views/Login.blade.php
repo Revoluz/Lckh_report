@@ -37,10 +37,12 @@
                 <a href="#" class="h1"><b>Login</b></a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <h6 class="login-box-msg">Selamat Datang di aplikasi penyampaian dokumen LCKH Bulanan bagi ASN
+                    di lingkungan Kantor Kementerian Agama Kabupaten Bantul</h6>
 
                 <form action="{{ route('authenticated') }}" method="post">
                     @csrf
+                    <label for="nip">NIP</label>
                     <div class="input-group mb-3">
                         <input type="number" class="form-control  @error('nip') is-invalid @enderror"" name="nip"
                             placeholder="NIP" id="nip" value="{{ old('nip') }}" />
@@ -56,9 +58,10 @@
                         @enderror
                     </div>
 
+                    <label for="password">Password</label> <br>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                            name="password" placeholder="Password" />
+                            name="password" placeholder="Password" required id="password" />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -74,7 +77,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember" />
+                                <input type="checkbox" id="remember" onclick="showPassword()" />
                                 <label for="remember"> Show Password </label>
                             </div>
                         </div>
@@ -102,6 +105,16 @@
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('assets/js/adminlte.js') }}"></script>
+    <script>
+        function showPassword() {
+            var show = document.getElementById('password');
+            if (show.type == 'password') {
+                show.type = 'text';
+            } else {
+                show.type = 'password';
+            }
+        }
+    </script>
 
 </body>
 

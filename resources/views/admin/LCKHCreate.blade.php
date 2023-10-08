@@ -94,8 +94,7 @@
                                             id="upload_document" placeholder="Masukan Link Google Drive"
                                             name="upload_document" />
                                         <small id="documentHelp" class="form-text text-gray text-bold">Masukan link dokumen
-                                            yang telah di upload di google
-                                            drive</small>
+                                            Lckh yang tersimpan di google drive masing-masing</small>
                                         @error('upload_document')
                                             <div id="validationServer04Feedback" class="invalid-feedback">
                                                 {{ $message }}

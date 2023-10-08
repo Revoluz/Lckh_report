@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Lckh_reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Undefined;
 
 class LckhAdminController extends Controller
 {
@@ -94,7 +95,12 @@ class LckhAdminController extends Controller
      */
     public function edit(Lckh_reports $lckh)
     {
-        $month = $lckh->monthly_report;
+        $lckh = $lckh::where('user_id', Auth::id())->where('id', $lckh->id)->get();
+        // dd($lckh);
+        if (count($lckh) === 0) {
+            abort(404);
+        }
+        $month = $lckh[0]->monthly_report;
 
         // Ubah string menjadi objek Carbon
         $month = Carbon::parse($month);
@@ -104,7 +110,7 @@ class LckhAdminController extends Controller
 
         return view('admin.LCKHEdit', [
             'users' => User::all(),
-            'lckh' => $lckh,
+            'lckh' => $lckh[0],
             'monthly_report' => $month,
         ]);
     }
@@ -115,13 +121,11 @@ class LckhAdminController extends Controller
     public function update(Request $request, Lckh_reports $lckh)
     {
         $rules = [
-            'nama' => 'required',
             'laporan_bulan' => 'required|date_format:Y-m',
             'upload_document' => 'required|url',
         ];
 
         $messages = [
-            'nama.required' => 'Nama wajib diisi.',
             'laporan_bulan.required' => 'Laporan Bulan laporan wajib diisi.',
             'laporan_bulan.date_format' => 'Format Laporan Bulan tidak valid.',
             'upload_document.required' => 'Dokumen wajib diupload.',
@@ -131,7 +135,7 @@ class LckhAdminController extends Controller
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
         // $user->save();
-        $lckh->user_id = $validateData['nama'];
+        $lckh->user_id = Auth::id();
         $lckh->upload_document = $validateData['upload_document'];
         $lckh->monthly_report = $date;
         $lckh->save();

@@ -40,6 +40,11 @@ class ListUploadLCKHPengawasController extends Controller
     }
     public function show(Lckh_reports $lckh)
     {
+        $auth = auth()->user();
+
+        if ($lckh->user->work_place_id != $auth->work_place_id) {
+            abort(404);
+        }
         $nama_bulan = ucfirst(Carbon::parse($lckh->monthly_report)->locale('id')->isoFormat('YYYY MMMM'));
         return view('pengawas.LCKHShow', [
             'lckh' => $lckh,

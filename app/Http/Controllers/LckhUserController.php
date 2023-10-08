@@ -34,9 +34,7 @@ class LckhUserController extends Controller
      */
     public function create()
     {
-        return view('user.LCKHCreate', [
-            'users' => User::all(),
-        ]);
+        return view('user.LCKHCreate', []);
     }
 
     /**
@@ -80,6 +78,10 @@ class LckhUserController extends Controller
      */
     public function show(Lckh_reports $lckh)
     {
+        $auth = auth()->user();
+        if ($lckh->user_id != $auth->id) {
+            abort(404);
+        }
         $nama_bulan = ucfirst(Carbon::parse($lckh->monthly_report)->locale('id')->isoFormat('YYYY MMMM'));
         return view('user.LCKHShow', [
             'lckh' => $lckh,
@@ -92,6 +94,10 @@ class LckhUserController extends Controller
      */
     public function edit(Lckh_reports $lckh)
     {
+        $auth = auth()->user();
+        if ($lckh->user_id != $auth->id) {
+            abort(404);
+        }
         $month = $lckh->monthly_report;
 
         // Ubah string menjadi objek Carbon

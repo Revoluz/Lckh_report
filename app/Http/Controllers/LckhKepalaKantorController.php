@@ -82,6 +82,10 @@ class LckhKepalaKantorController extends Controller
      */
     public function show(Lckh_reports $lckh)
     {
+        $auth = auth()->user();
+        if ($lckh->user_id != $auth->id) {
+            abort(404);
+        }
         $nama_bulan = ucfirst(Carbon::parse($lckh->monthly_report)->locale('id')->isoFormat('YYYY MMMM'));
         return view('kepala-kantor.LCKHShow', [
             'lckh' => $lckh,
@@ -94,6 +98,10 @@ class LckhKepalaKantorController extends Controller
      */
     public function edit(Lckh_reports $lckh)
     {
+        $auth = auth()->user();
+        if ($lckh->user_id != $auth->id) {
+            abort(404);
+        }
         $month = $lckh->monthly_report;
 
         // Ubah string menjadi objek Carbon
@@ -103,7 +111,6 @@ class LckhKepalaKantorController extends Controller
         $month = $month->format('Y-m');
 
         return view('kepala-kantor.LCKHEdit', [
-            'users' => User::all(),
             'lckh' => $lckh,
             'monthly_report' => $month,
         ]);
@@ -115,13 +122,11 @@ class LckhKepalaKantorController extends Controller
     public function update(Request $request, Lckh_reports $lckh)
     {
         $rules = [
-            'nama' => 'required',
             'laporan_bulan' => 'required|date_format:Y-m',
             'upload_document' => 'required|url',
         ];
 
         $messages = [
-            'nama.required' => 'Nama wajib diisi.',
             'laporan_bulan.required' => 'Laporan Bulan laporan wajib diisi.',
             'laporan_bulan.date_format' => 'Format Laporan Bulan tidak valid.',
             'upload_document.required' => 'Dokumen wajib diupload.',
@@ -131,7 +136,7 @@ class LckhKepalaKantorController extends Controller
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
         // $user->save();
-        $lckh->user_id = $validateData['nama'];
+        $lckh->user_id = Auth::id();
         $lckh->upload_document = $validateData['upload_document'];
         $lckh->monthly_report = $date;
         $lckh->save();

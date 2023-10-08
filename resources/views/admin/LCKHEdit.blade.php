@@ -57,31 +57,6 @@
                                 @csrf
                                 @method('put')
                                 <div class="card-body d-flex flex-wrap">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="nama">Nama</label>
-                                            <select class="form-control select2bs4  @error('nama')is-invalid @enderror"
-                                                value="{{ old('nama') }}" style="width: 100%" name="nama"
-                                                id="nama">
-                                                Masukan Nama
-                                                </option>
-                                                @foreach ($users as $user)
-                                                    @if ($user->id == $lckh->user_id)
-                                                        <option selected value="{{ $user->id }}">{{ $user->name }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $user->id }}">{{ $user->name }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            @error('nama')
-                                                <div id="validationServer04Feedback" class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <div class="form-group col-lg-6">
                                         <label for="laporan_bulan">Laporan Bulan</label>
                                         <input type="month" value="{{ old('laporan_bulan', $monthly_report) }}"
@@ -92,7 +67,6 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="upload_document">Upload Dokumen</label>
@@ -101,8 +75,7 @@
                                             id="upload_document" placeholder="Masukan Link Google Drive"
                                             name="upload_document" />
                                         <small id="documentHelp" class="form-text text-gray text-bold">Masukan link dokumen
-                                            yang telah di upload di google
-                                            drive</small>
+                                            Lckh yang tersimpan di google drive masing-masing</small>
                                         @error('upload_document')
                                             <div id="validationServer04Feedback" class="invalid-feedback">
                                                 {{ $message }}
