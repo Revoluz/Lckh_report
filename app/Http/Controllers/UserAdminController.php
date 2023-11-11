@@ -43,7 +43,7 @@ class UserAdminController extends Controller
         $rules = [
             'nip' => 'required|numeric|unique:users,nip',
             'nama' => 'required',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'tempat_tugas' => 'required',
             'role' => 'required',
             'status' => 'required',
@@ -56,7 +56,6 @@ class UserAdminController extends Controller
             'nip.numeric' => 'NIP harus berupa angka.',
             'nip.unique' => 'NIP sudah terdaftar.',
             'nama.required' => 'Nama wajib diisi.',
-            'email.required' => 'Email wajib diisi.',
             'email.email' => 'Email tidak valid.',
             'tempat_tugas.required' => 'Tempat tugas wajib diisi.',
             'role.required' => 'Role wajib diisi.',
@@ -136,13 +135,12 @@ class UserAdminController extends Controller
     {
         $rules = [
             'nama' => 'required',
-            'email' => 'required|email',
+            'email' => 'nullable|email',
             'tempat_tugas' => 'required',
             'role' => 'required',
             'status' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'password' => 'nullable|min:8|confirmed',
-
         ];
         if ($request->nip != $user->nip) {
             $rules['nip'] =  'required|numeric|unique:users,nip';

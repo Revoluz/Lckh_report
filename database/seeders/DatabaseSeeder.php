@@ -49,5 +49,15 @@ class DatabaseSeeder extends Seeder
         Work_place::create([
             'work_place' => 'Seksi PAIS'
         ]);
+        User::create([
+            'name' => 'fanan admin',
+            'nip' => '12345678',
+            'email' => '',
+            'work_place_id' => '1',
+            'image' => '34233',
+            'status_id' => '1',
+            'role_id' => '1',
+            'password' => '12345678',
+        ]);
     }
 }

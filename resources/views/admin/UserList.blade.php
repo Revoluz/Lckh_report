@@ -58,11 +58,10 @@
                     <!-- content-->
                     <div class="col-12">
                         <!-- /.card -->
-
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    Pelaporan LCKH
+                                    Data User
                                 </h3>
                             </div>
                             <!-- /.card-header -->

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('name');
-            $table->bigInteger('nip');
-            $table->string('email')->unique();
+            $table->bigInteger('nip')->unique();
+            $table->string('email')->unique()->nullable();
             $table->foreignId('work_place_id')->constrained(
                 table: 'work_places',
             )->restrictOnUpdate()->restrictOnDelete();
