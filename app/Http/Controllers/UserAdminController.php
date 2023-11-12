@@ -79,7 +79,7 @@ class UserAdminController extends Controller
         // Simpan data user menggunakan User::create()
         $user = User::create([
             'name' => $validateData['nama'],
-            'nip' => 1234567890,
+            'nip' => $validateData['nip'],
             'email' => $validateData['email'],
             'work_place_id' => $validateData['tempat_tugas'],
             'status_id' => $validateData['status'],

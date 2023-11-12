@@ -57,6 +57,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        @if (Request::is('admin/document-*'))
+                            <a href="{{ route('document.index') }}" class="nav-link ">
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>List Upload Dokumen</p>
+                            </a>
+                        @else
+                            <a href="{{ route('document.index') }}"
+                                class="nav-link {{ Request::is('admin/document*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>List Upload Dokumen</p>
+                            </a>
+                        @endif
+
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('recapData.index') }}"
                             class="nav-link {{ Request::is('admin/rekap-data*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-table"></i>

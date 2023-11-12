@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DokumenAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ListUploadLCKHAdminController;
 use App\Http\Controllers\RecapDataKepalaKantorController;
 use App\Http\Controllers\ListUploadLCKHPengawasController;
 use App\Http\Controllers\ListUploadLCKHKepalaKantorController;
+use App\Http\Controllers\DocumentTypeAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,13 @@ Route::middleware(['auth'])->group(function () {
             ])->parameter('tempat-tugas', 'work_place');
         Route::get('/admin/role', [RoleAdminController::class, 'index'])->name('role.index');
         Route::get('/admin/role/{role}', [RoleAdminController::class, 'show'])->name('role.show');
+        Route::resource(
+            '/admin/document',
+            DokumenAdminController::class
+        );
+        Route::get('/admin/document/download/{document}', [DokumenAdminController::class, 'downloadDocument'])->name('document.download');
+        Route::get('/admin/document/filter/document', [DokumenAdminController::class, 'filterDocument'])->name('document.filter');
+        Route::resource('/admin/document-type', DocumentTypeAdminController::class);
     });
     Route::middleware(['User'])->group(function () {
         Route::resource('/user/lckh', LckhUserController::class)->names(['index' => 'lckhUser.index', 'create' => 'lckhUser.create', 'store' => 'lckhUser.store', 'show' => 'lckhUser.show', 'edit' => 'lckhUser.edit', 'update' => 'lckhUser.update', 'destroy' => 'lckhUser.destroy']);

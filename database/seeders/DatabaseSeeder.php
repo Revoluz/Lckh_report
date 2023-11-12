@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Document_types;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Status;
@@ -48,6 +50,12 @@ class DatabaseSeeder extends Seeder
         ]);
         Work_place::create([
             'work_place' => 'Seksi PAIS'
+        ]);
+        Document_types::create([
+            'name' => 'KGB'
+        ]);
+        Document_types::create([
+            'name' => 'PAK'
         ]);
         User::create([
             'name' => 'fanan admin',

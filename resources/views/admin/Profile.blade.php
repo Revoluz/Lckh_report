@@ -80,7 +80,13 @@
                                     data-target="#modal-ubah-password">
                                     Ubah Password <i class="fas fa-unlock-alt mx-2"></i>
                                 </button>
-
+                                @if (auth()->user()->role->role == 'Administrator')
+                                    <a href="{{ route('userAdmin.edit', ['nip' => $user->nip]) }}" class="ml-2">
+                                        <button type="button" class="btn btn-success mb-0  text-white light">
+                                            Edit Profile <i class="fas fa-edit  mx-2"></i>
+                                        </button>
+                                    </a>
+                                @endif
                             </div>
                             <div class="card-body d-flex flex-wrap align-content-start">
                                 <div class="form-group col-lg-6">
