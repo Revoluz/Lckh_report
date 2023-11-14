@@ -14,7 +14,7 @@
                 style=" width:35px;height:35px">
                 <i class="fab fa-dochub " style="color: #343a40"></i>
             </div>
-            <span class="brand-text font-weight-bold"><b>e-Dok LCKH</b></span>
+            <span class="brand-text font-weight-bold"><b>e-Dok Kepegawaian</b></span>
         </a>
         <!-- Sidebar -->
         @include('partials.pengawas.sidebar')

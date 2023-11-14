@@ -1,12 +1,10 @@
 @extends('layout.main')
-
 @section('head')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
 @endsection
-
 @section('content')
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -23,23 +21,20 @@
 
         <!-- /.sidebar -->
     </aside>
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Upload LCKH</h1>
+                        <h1 class="m-0">Dokumen</h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="#">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">
-                                Upload LCKH
-                            </li>
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dokumen</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -60,78 +55,62 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">
-                                    Pelaporan LCKH
-                                </h3>
+                                <h3 class="card-title">Dokumen</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <a href="{{ route('lckhUser.create') }}">
-                                    <button type="button" class="btn btn-success mb-2 ml-auto">
-                                        Tambah Data LCKH
-                                        <i class="ml-1 fas fa-plus"></i>
-                                    </button>
-                                </a>
+
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Upload Dokumen</th>
+                                            <th>NO</th>
+                                            <th>Nama User</th>
+                                            <th>Nama Dokumen</th>
+                                            <th>Jenis Dokumen</th>
+                                            <th>Dokumen Bulan</th>
                                             <th>Tanggal Upload</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($lckh as $data)
+                                        @forelse ($documents as $data)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->user->nip }}</td>
-                                                <td>
-                                                    {{ $data->user->name }}
-                                                </td>
-                                                <td>{{ $data->user->work_place->work_place }}</td>
-                                                <td><a style="display: inline-block;width:250px"
-                                                        href="{{ $data->upload_document }} ">{{ $data->upload_document }}
-                                                    </a></td>
-                                                <td>{{ $data->nama_bulan }}</td>
+                                                <td>{{ $data->user->name }}</td>
+                                                <td>{{ $data->name }}</td>
+                                                <td>{{ $data->document_type->name }}</td>
+                                                <td>{{ $data->tanggal_upload }}</td>
+                                                <td class="date">{{ $data->created_at }}</td>
+
                                                 <td>
                                                     <div class="btn-group">
-                                                        <a href="{{ route('lckhUser.show', ['lckh' => $data->id]) }}">
+                                                        <a
+                                                            href="{{ route('documentUser.show', ['document' => $data->id]) }}">
                                                             <button type="button" class="btn btn-info">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
                                                         </a>
-                                                        <a href="{{ route('lckhUser.edit', ['lckh' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-warning">
-                                                                <i class="fas fa-edit text-white"></i>
+                                                        <a
+                                                            href="{{ route('documentUser.download', ['document' => $data->id]) }}">
+                                                            <button type="button" class="btn btn-success">
+                                                                <i class="fas fa-download text-white"></i>
                                                             </button>
                                                         </a>
-                                                        <form
-                                                            action="{{ route('lckhUser.destroy', ['lckh' => $data->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
                                         @empty
-                                            <p>No users</p>
+                                            <p>No Data</p>
                                         @endforelse
+
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Upload Dokumen</th>
+                                            <th>Nama User</th>
+                                            <th>Nama Dokumen</th>
+                                            <th>Jenis Dokumen</th>
+                                            <th>Dokumen Bulan</th>
                                             <th>Tanggal Upload</th>
                                             <th>Action</th>
                                         </tr>
@@ -149,6 +128,8 @@
         </div>
         <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
+    <!-- /.modal -->
 @endsection
 @section('plugins')
     <!-- DataTables  & Plugins -->
@@ -175,6 +156,7 @@
                     pageLength: 10, // menentukan jumlah data per halaman
                     pagingType: 'simple_numbers', // menambahkan panah navigasi
                     buttons: ["copy", "csv", "excel", "pdf", "print"],
+
                 })
                 .buttons()
                 .container()
@@ -186,6 +168,20 @@
                 autoWidth: false,
                 responsive: true,
             });
+        });
+    </script>
+    <!-- Select2 -->
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+
+            //Initialize Select2 Elements
+            $(".select2bs4").select2({
+                theme: "bootstrap4",
+            });
+
         });
     </script>
 @endsection

@@ -66,10 +66,16 @@
                             <a href="{{ route('document.index') }}"
                                 class="nav-link {{ Request::is('admin/document*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-envelope"></i>
-                                <p>List Upload Dokumen</p>
+                                <p>List Kirim Dokumen</p>
                             </a>
                         @endif
-
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('document-type.index') }}"
+                            class="nav-link {{ Request::is('admin/document-type*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-envelope-open-text"></i>
+                            <p>Tipe Dokumen</p>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('recapData.index') }}"

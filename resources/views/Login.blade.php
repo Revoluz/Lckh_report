@@ -37,8 +37,8 @@
                 <a href="#" class="h1"><b>Login</b></a>
             </div>
             <div class="card-body">
-                <h6 class="login-box-msg">Selamat Datang di aplikasi penyampaian dokumen LCKH Bulanan bagi ASN
-                    di lingkungan Kantor Kementerian Agama Kabupaten Bantul</h6>
+                <h6 class="login-box-msg">Selamat Datang di aplikasi penyampaian dokumen kepegawaian Kantor
+                    Kementerian Agama Kabupaten Bantul</h6>
 
                 <form action="{{ route('authenticated') }}" method="post">
                     @csrf

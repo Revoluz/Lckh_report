@@ -49,6 +49,13 @@
                             <p>Upload LCKH</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('documentUser.index') }}"
+                            class="nav-link {{ Request::is('user/document*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-envelope"></i>
+                            <p>List Terima Dokumen</p>
+                        </a>
+                    </li>
 
                 </ul>
             </nav>

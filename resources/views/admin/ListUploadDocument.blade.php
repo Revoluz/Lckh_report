@@ -17,7 +17,7 @@
                 style=" width:35px;height:35px">
                 <i class="fab fa-dochub " style="color: #343a40"></i>
             </div>
-            <span class="brand-text font-weight-bold"><b>e-Dok LCKH</b></span>
+            <span class="brand-text font-weight-bold"><b>e-Dok Kepegawaian</b></span>
         </a>
         <!-- Sidebar -->
         @include('partials.admin.sidebar')
@@ -117,7 +117,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class=" d-flex " style="gap: 8px">
                                         <button type="submit" class="btn btn-primary">
                                             Filter
                                         </button>
@@ -126,13 +126,18 @@
                                                 Reset
                                             </button>
                                         </a>
+                                        <a href="{{ route('document.create') }}" class="ml-auto">
+                                            <button type="button" class="btn btn-success ">
+                                                Tambah Dokumen <i class="ml-1 fas fa-plus"></i>
+                                            </button>
+                                        </a>
                                     </div>
                                 </form>
                             </div>
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <h3 class="card-title">List Upload LCKH</h3>
+                                <h3 class="card-title">List Kirim LCKH</h3>
                                 <br />
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>

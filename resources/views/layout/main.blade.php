@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>e-Dok LCKH</title>
+    <title>e-Dok Kepegawaian</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -82,7 +82,7 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <strong>Copyright &copy; 2023
-                <a href="https://adminlte.io">e-Dok LCKH</a>.</strong>
+                <a href="/">e-Dok Kepegawaian</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
             </div>

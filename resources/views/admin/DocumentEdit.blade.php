@@ -13,7 +13,7 @@
                 style=" width:35px;height:35px">
                 <i class="fab fa-dochub " style="color: #343a40"></i>
             </div>
-            <span class="brand-text font-weight-bold"><b>e-Dok LCKH</b></span>
+            <span class="brand-text font-weight-bold"><b>e-Dok Kepegawaian</b></span>
         </a>
         <!-- Sidebar -->
         @include('partials.admin.sidebar')
@@ -142,6 +142,18 @@
                                             </div>
                                         </div>
                                         @error('upload_dokumen')
+                                            <div id="validationServer04Feedback" class="invalid-feedback d-block">
+                                                <p> {{ $message }}</p>
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label for="deskripsi">Deskripsi</label>
+                                        <div class="input-group">
+                                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi"
+                                                aria-label="With textarea">{{ old('deskripsi', $document->description) }}</textarea>
+                                        </div>
+                                        @error('deskripsi')
                                             <div id="validationServer04Feedback" class="invalid-feedback d-block">
                                                 <p> {{ $message }}</p>
                                             </div>

@@ -10,7 +10,7 @@
                 style=" width:35px;height:35px">
                 <i class="fab fa-dochub " style="color: #343a40"></i>
             </div>
-            <span class="brand-text font-weight-bold"><b>e-Dok LCKH</b></span>
+            <span class="brand-text font-weight-bold"><b>e-Dok Kepegawaian</b></span>
         </a>
         <!-- Sidebar -->
         @include('partials.admin.sidebar')
@@ -87,6 +87,11 @@
                                 <div class="form-group col-lg-6">
                                     <h5><b>Tipe Dokumen : </b></h5>
                                     <h5>{{ $document->document_type->name }}
+                                    </h5>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <h5><b>Deskripsi : </b></h5>
+                                    <h5>{{ $document->description }}
                                     </h5>
                                 </div>
                             </div>
