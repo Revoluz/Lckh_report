@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('filename');
+            $table->text('description')->nullable();
             $table->foreignId('user_id')->constrained(table: 'users')->restrictOnUpdate()->restrictOnDelete();
             $table->foreignId('document_type_id')->constrained(table: 'document_types')->restrictOnUpdate()->restrictOnDelete();
             $table->date('document_date');

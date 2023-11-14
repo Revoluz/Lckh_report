@@ -67,5 +67,35 @@ class DatabaseSeeder extends Seeder
             'role_id' => '1',
             'password' => '12345678',
         ]);
+        User::create([
+            'name' => 'fanan user',
+            'nip' => '1234567',
+            'email' => '',
+            'work_place_id' => '1',
+            'image' => '34233',
+            'status_id' => '1',
+            'role_id' => '3',
+            'password' => '12345678',
+        ]);
+        User::create([
+            'name' => 'fanan pengawas',
+            'nip' => '123456',
+            'email' => '',
+            'work_place_id' => '1',
+            'image' => '34233',
+            'status_id' => '1',
+            'role_id' => '2',
+            'password' => '12345678',
+        ]);
+        User::create([
+            'name' => 'fanan kepala kantor',
+            'nip' => '12345',
+            'email' => '',
+            'work_place_id' => '1',
+            'image' => '34233',
+            'status_id' => '1',
+            'role_id' => '4',
+            'password' => '12345678',
+        ]);
     }
 }

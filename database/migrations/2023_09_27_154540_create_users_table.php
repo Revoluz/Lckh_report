@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('name');
             $table->bigInteger('nip')->unique();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->foreignId('work_place_id')->constrained(
                 table: 'work_places',
             )->restrictOnUpdate()->restrictOnDelete();

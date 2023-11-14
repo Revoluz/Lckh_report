@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DokumenAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
@@ -9,17 +8,19 @@ use App\Http\Controllers\LckhAdminController;
 use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\WorkPlaceController;
+use App\Http\Controllers\UserDokumenController;
+use App\Http\Controllers\DokumenAdminController;
 use App\Http\Controllers\LckhPengawasController;
 use App\Http\Controllers\UserPengawasController;
 use App\Http\Controllers\RecapDataAdminController;
 use App\Http\Controllers\LckhKepalaKantorController;
 use App\Http\Controllers\UserKepalaKantorController;
+use App\Http\Controllers\DocumentTypeAdminController;
 use App\Http\Controllers\RecapDataPengawasController;
 use App\Http\Controllers\ListUploadLCKHAdminController;
 use App\Http\Controllers\RecapDataKepalaKantorController;
 use App\Http\Controllers\ListUploadLCKHPengawasController;
 use App\Http\Controllers\ListUploadLCKHKepalaKantorController;
-use App\Http\Controllers\DocumentTypeAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,8 +72,13 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware(['User'])->group(function () {
         Route::resource('/user/lckh', LckhUserController::class)->names(['index' => 'lckhUser.index', 'create' => 'lckhUser.create', 'store' => 'lckhUser.store', 'show' => 'lckhUser.show', 'edit' => 'lckhUser.edit', 'update' => 'lckhUser.update', 'destroy' => 'lckhUser.destroy']);
-        Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+        Route::get('/user/profile', [
+            UserController::class, 'profile'
+        ])->name('user.profile');
         Route::put('/user/change-password/{user}', [UserController::class, 'changePassword'])->name('changeUser.Password');
+        Route::get('/user/document', [UserDokumenController::class, 'index'])->name('documentUser.index');
+        Route::get('/user/document/{document}', [UserDokumenController::class, 'show'])->name('documentUser.show');
+        Route::get('/user/document/download/{document}', [UserDokumenController::class, 'downloadDocument'])->name('documentUser.download');
     });
     Route::middleware(['Pengawas'])->group(function () {
         Route::resource('/pengawas/lckh', LckhPengawasController::class)->names(['index' => 'lckhPengawas.index', 'create' => 'lckhPengawas.create', 'store' => 'lckhPengawas.store', 'show' => 'lckhPengawas.show', 'edit' => 'lckhPengawas.edit', 'update' => 'lckhPengawas.update', 'destroy' => 'lckhPengawas.destroy']);

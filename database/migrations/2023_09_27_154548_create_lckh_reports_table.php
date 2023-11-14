@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lckh_reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(table: 'users', indexName: 'id')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreignId('user_id')->constrained(table: 'users', indexName: 'id')->restrictOnUpdate();
             $table->text('upload_document');
             $table->date('monthly_report');
             $table->date('upload_date');
