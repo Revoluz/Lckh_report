@@ -18,6 +18,7 @@ class Documents extends Model
         'user_id',
         'document_type_id',
         'document_date',
+        'description',
     ];
     protected $with = ['user', 'document_type'];
 
