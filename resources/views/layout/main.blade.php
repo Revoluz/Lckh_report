@@ -98,11 +98,9 @@
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
     <script src="{{ asset('assets/js/adminlte.js') }}"></script>
-
-    <!-- OPTIONAL SCRIPTS -->
-    <script src="{{ asset('plugins') }}/chart.js/Chart.min.js"></script>
-    {{-- <script src="{{ asset('plugins') }}/toastr/toastr.min.js"></script> --}}
+    <script src="{{ asset('button-submit.js') }}"></script>
     @yield('plugins')
+
 </body>
 
 </html>

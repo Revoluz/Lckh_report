@@ -150,7 +150,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary button-submit">
                             Save changes
                         </button>
                     </div>
