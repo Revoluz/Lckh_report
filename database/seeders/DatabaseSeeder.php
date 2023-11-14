@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'PAK'
         ]);
         User::create([
-            'name' => 'fanan admin',
+            'name' => 'admin',
             'nip' => '12345678',
             'email' => '',
             'work_place_id' => '1',
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678',
         ]);
         User::create([
-            'name' => 'fanan user',
+            'name' => 'user',
             'nip' => '1234567',
             'email' => '',
             'work_place_id' => '1',
@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678',
         ]);
         User::create([
-            'name' => 'fanan pengawas',
+            'name' => 'pengawas',
             'nip' => '123456',
             'email' => '',
             'work_place_id' => '1',
@@ -88,7 +88,7 @@ class DatabaseSeeder extends Seeder
             'password' => '12345678',
         ]);
         User::create([
-            'name' => 'fanan kepala kantor',
+            'name' => 'kepala kantor',
             'nip' => '12345',
             'email' => '',
             'work_place_id' => '1',
