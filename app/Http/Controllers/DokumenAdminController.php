@@ -53,8 +53,9 @@ class DokumenAdminController extends Controller
             'nama' => 'required',
             'nama_dokumen' => 'required',
             'tipe_dokumen' => 'required',
+            'deskripsi' => 'nullable',
             'dokumen_bulan' => 'required|date_format:Y-m',
-            'upload_dokumen' => 'required|file|mimes:pdf|max:20480',
+            'upload_dokumen' => 'required|file|mimes:pdf|max:2048',
         ];
 
         $messages = [
@@ -74,6 +75,7 @@ class DokumenAdminController extends Controller
             'name' => $validateData['nama_dokumen'],
             'document_date' => $date,
             'filename' => $filename,
+            'description' =>  $validateData['deskripsi'],
         ]);
         // Jika data dokumen berhasil disimpan, tampilkan pesan berhasil
         if ($document) {
@@ -127,6 +129,7 @@ class DokumenAdminController extends Controller
             'nama' => 'required',
             'nama_dokumen' => 'required',
             'tipe_dokumen' => 'required',
+            'deskripsi' => 'nullable',
             'dokumen_bulan' => 'required|date_format:Y-m',
             'upload_dokumen' => 'nullable|file|mimes:pdf|max:20480',
 
@@ -147,6 +150,7 @@ class DokumenAdminController extends Controller
         $document->name = $validateData['nama_dokumen'];
         $document->document_type_id = $validateData['tipe_dokumen'];
         $document->document_date = $date;
+        $document->description = $validateData['deskripsi'];
         $document->save();
         if ($document->save()) {
             return redirect()->route('document.index')->with('success', 'Dokumen berhasil ditambahkan!');

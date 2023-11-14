@@ -148,7 +148,7 @@ class LckhPengawasController extends Controller
      */
     public function destroy(Lckh_reports $lckh)
     {
-        User::destroy($lckh->id);
+        Lckh_reports::destroy($lckh->id);
         $lckh->delete();
         return redirect()->route('lckhPengawas.index')->with('success', 'Berhasil Menghapus Dokumen LCKH');
     }
