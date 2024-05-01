@@ -61,7 +61,6 @@
                                 <h3 class="card-title">Filter Dokumen</h3>
                                 <br />
                                 <form method="get" action="{{ route('document.filter') }}">
-                                    @csrf
                                     <div class="d-md-flex" style="gap: 8px">
                                         <div class="flex-grow-1 form-group">
                                             <label for="tahun">Tahun:</label>
@@ -142,11 +141,12 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>NO</th>
-                                            <th>Nama User</th>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>NIP</th>
                                             <th>Nama Dokumen</th>
                                             <th>Jenis Dokumen</th>
-                                            <th>Dokumen Bulan</th>
+                                            <th>Periode Mulai Berlaku</th>
                                             <th>Tanggal Upload</th>
                                             <th>Action</th>
                                         </tr>
@@ -156,6 +156,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->user->name }}</td>
+                                                <td>{{ $data->user->nip }}</td>
                                                 <td>{{ $data->name }}</td>
                                                 <td>{{ $data->document_type->name }}</td>
                                                 <td>{{ $data->tanggal_upload }}</td>
@@ -199,10 +200,11 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama User</th>
+                                            <th>Nama</th>
+                                            <th>NIP</th>
                                             <th>Nama Dokumen</th>
                                             <th>Jenis Dokumen</th>
-                                            <th>Dokumen Bulan</th>
+                                            <th>Periode Mulai Berlaku</th>
                                             <th>Tanggal Upload</th>
                                             <th>Action</th>
                                         </tr>

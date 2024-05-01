@@ -72,73 +72,7 @@
                                         <i class="ml-1 fas fa-plus"></i>
                                     </button>
                                 </a>
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Email</th>
-                                            <th>Pasfoto</th>
-                                            <th>User Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($users as $user)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->nip }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->work_place->work_place }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td><img style="width: 80px"
-                                                        src="{{ asset('storage/images/user/' . $user->image) }}"
-                                                        alt=""></td>
-                                                <td>{{ $user->role->role }}</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('userAdmin.show', ['nip' => $user->nip]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                        <a href="{{ route('userAdmin.edit', ['nip' => $user->nip]) }}">
-                                                            <button type="button" class="btn btn-warning">
-                                                                <i class="fas fa-edit text-white"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('userAdmin.destroy', ['user' => $user->id]) }} "method="post">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <p>No data available in table</p>
-                                        @endforelse
-
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Email</th>
-                                            <th>Pasfoto</th>
-                                            <th>User Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                {{ $dataTable->table() }}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -205,4 +139,6 @@
 
         });
     </script>
+
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endsection

@@ -89,23 +89,23 @@
                                 @endif
                             </div>
                             <div class="card-body d-flex flex-wrap align-content-start">
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-md-6">
                                     <h5><b>NIP : </b></h5>
                                     <h5>{{ $user->nip }}</h5>
                                 </div>
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-md-6">
                                     <h5><b>Nama : </b></h5>
                                     <h5>{{ $user->name }}</h5>
                                 </div>
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-md-6">
                                     <h5><b>Email : </b></h5>
                                     <h5>{{ $user->email }}</h5>
                                 </div>
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-md-6">
                                     <h5><b>Tempat Tugas : </b></h5>
                                     <h5>{{ $user->work_place->work_place }}</h5>
                                 </div>
-                                <div class="form-group col-lg-6">
+                                <div class="form-group col-md-6">
                                     <h5><b>Status : </b></h5>
                                     <h5>{{ $user->status->status }}</h5>
                                 </div>

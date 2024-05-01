@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Status;
 use App\Models\Work_place;
 use Illuminate\Http\Request;
+use App\DataTables\UsersDataTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -16,10 +17,10 @@ class UserAdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
 
-        return view('admin.UserList', ['users' => User::all()]);
+        return $dataTable->render('admin.UserList');
     }
 
     /**
