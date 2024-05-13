@@ -16,7 +16,7 @@
             <span class="brand-text font-weight-bold"><b>e-Dok Kepegawaian</b></span>
         </a>
         <!-- Sidebar -->
-        @include('partials.kepala-kantor.sidebar')
+        @include('partials.admin.sidebar')
 
         <!-- /.sidebar -->
     </aside>
@@ -53,7 +53,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Upload LCKH</h3>
                             </div>
-                            <form action="{{ route('lckhKepalaKantor.store') }}" method="POST">
+                            <form action="{{ route('lckh.store') }}" method="POST">
                                 @csrf
                                 <div class="card-body d-flex flex-wrap">
                                     <div class="col-lg-6">
