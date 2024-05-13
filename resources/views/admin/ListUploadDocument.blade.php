@@ -60,8 +60,8 @@
                             <div class="card-header">
                                 <h3 class="card-title">Filter Dokumen</h3>
                                 <br />
+                                 @if (Gate::check('auth.admin') || Gate::check('auth.pengawas') || Gate::check('auth.kepala-kantor')||Gate::check('auth.keuangan'))
                                 <form method="get" action="{{ route('document.filter') }}">
-                                    @csrf
                                     <div class="d-md-flex" style="gap: 8px">
                                         <div class="flex-grow-1 form-group">
                                             <label for="tahun">Tahun:</label>
@@ -133,6 +133,7 @@
                                         </a>
                                     </div>
                                 </form>
+                                @endif
                             </div>
 
                             <!-- /.card-header -->

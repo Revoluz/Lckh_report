@@ -53,7 +53,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Upload LCKH</h3>
                             </div>
-                            <form action="{{ route('lckhAdmin.store') }}" method="POST">
+                            <form action="{{ route('lckh.store') }}" method="POST">
                                 @csrf
                                 <div class="card-body d-flex flex-wrap">
                                     <div class="col-lg-6">

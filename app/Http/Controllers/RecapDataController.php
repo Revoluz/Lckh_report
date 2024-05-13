@@ -8,7 +8,7 @@ use App\Models\Lckh_reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class RecapDataAdminController extends Controller
+class RecapDataController extends Controller
 {
     public function index()
     {

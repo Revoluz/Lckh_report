@@ -108,7 +108,7 @@ class UserAdminController extends Controller
             abort(403);
         }
         return view('admin.UserShow', [
-            'user' => $user[0],
+            'user' => auth()->user(),
             'id' => $id,
         ]);
     }

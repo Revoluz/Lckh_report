@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Undefined;
 
-class LckhAdminController extends Controller
+class LckhController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -72,7 +72,7 @@ class LckhAdminController extends Controller
         ]);
 
         if ($lckh) {
-            return redirect()->route('lckhAdmin.index')->with('success', 'Data Dokumen LCKH berhasil ditambahkan!');
+            return redirect()->route('lckh.index')->with('success', 'Data Dokumen LCKH berhasil ditambahkan!');
         } else {
             return redirect()->back()->with('error', 'Data Dokumen LCKH ditambahkan!');
         }
@@ -141,7 +141,7 @@ class LckhAdminController extends Controller
         $lckh->save();
 
         if ($lckh->save()) {
-            return redirect()->route('lckhAdmin.index')->with('success', 'Dokumen LCKH berhasil diupdate!');
+            return redirect()->route('lckh.index')->with('success', 'Dokumen LCKH berhasil diupdate!');
         } else {
             return redirect()->back()->with('error', 'Dokumen LCKH gagal diupdate!');
         }
@@ -154,6 +154,6 @@ class LckhAdminController extends Controller
     {
         Lckh_reports::destroy($lckh->id);
         $lckh->delete();
-        return redirect()->route('lckhAdmin.index')->with('success', 'Berhasil Menghapus Dokumen LCKH');
+        return redirect()->route('lckh.index')->with('success', 'Berhasil Menghapus Dokumen LCKH');
     }
 }

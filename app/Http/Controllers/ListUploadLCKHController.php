@@ -8,7 +8,7 @@ use App\Models\Work_place;
 use App\Models\Lckh_reports;
 use Illuminate\Http\Request;
 
-class ListUploadLCKHAdminController extends Controller
+class ListUploadLCKHController extends Controller
 {
     public function index()
     {

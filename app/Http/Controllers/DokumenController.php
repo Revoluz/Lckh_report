@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Document_types;
 use Illuminate\Support\Facades\Storage;
 
-class DokumenAdminController extends Controller
+class DokumenController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -130,7 +130,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('changeAdmin.Password', ['user' => $user->id]) }}" method="post">
+                <form action="{{ route('change.Password', ['user' => $user->id]) }}" method="post">
                     <div class="modal-body">
                         @method('put')
                         @csrf
