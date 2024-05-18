@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -52,7 +53,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    protected $with = ['work_place', 'role', 'status'];
+    protected $with = ['work_place', 'role', 'status',];
 
     public function work_place(): BelongsTo
     {
@@ -65,5 +66,13 @@ class User extends Authenticatable
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id', 'id');
+    }
+    public function documents(): HasMany
+    {
+        return $this->hasMany(Documents::class);
+    }
+    public function lckh_reports(): HasMany
+    {
+        return $this->hasMany(Lckh_reports::class,'user_id');
     }
 }

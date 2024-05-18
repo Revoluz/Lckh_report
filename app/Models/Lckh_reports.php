@@ -19,6 +19,6 @@ class Lckh_reports extends Model
     protected $with = ['user'];
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

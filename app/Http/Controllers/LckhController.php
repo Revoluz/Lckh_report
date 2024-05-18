@@ -34,9 +34,15 @@ class LckhController extends Controller
      */
     public function create()
     {
-        return view('admin.LCKHCreate', [
-            'users' => User::all(),
-        ]);
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+            $users=auth()->user();
+        }elseif (auth()->user()->role->role =='Administrator' || auth()->user()->role->role == 'Kepala kantor') {
+            $users = User::all();
+        }
+            return view('admin.LCKHCreate', [
+                'users' => $users,
+            ]);
+
     }
 
     /**
@@ -45,11 +51,19 @@ class LckhController extends Controller
     public function store(Request $request)
     {
         // Lakukan validasi data input
-        $rules = [
-            'nama' => 'required',
-            'laporan_bulan' => 'required|date_format:Y-m',
-            'upload_document' => 'required|url',
-        ];
+
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+            $rules = [
+                'laporan_bulan' => 'required|date_format:Y-m',
+                'upload_document' => 'required|url',
+            ];
+        } elseif (auth()->user()->role->role == 'Administrator' || auth()->user()->role->role == 'Kepala kantor') {
+            $rules = [
+                'nama' => 'required',
+                'laporan_bulan' => 'required|date_format:Y-m',
+                'upload_document' => 'required|url',
+            ];
+        }
 
         $messages = [
             'nama.required' => 'Nama wajib diisi.',
@@ -60,7 +74,9 @@ class LckhController extends Controller
         ];
 
         $validateData = $request->validate($rules, $messages);
-
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+            $validateData['nama'] = Auth::id();
+        }
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
         $lckh = Lckh_reports::create([
@@ -83,6 +99,12 @@ class LckhController extends Controller
      */
     public function show(Lckh_reports $lckh)
     {
+        $user = auth()->user()->role->role;
+        if ($user == 'User'||$user == 'Keuangan') {
+            $this->authorize('lckh.show', $lckh);
+        }elseif($user == 'Pengawas'){
+            $this->authorize('lckh.showPengawas', $lckh);
+        }
         $nama_bulan = ucfirst(Carbon::parse($lckh->monthly_report)->locale('id')->isoFormat('YYYY MMMM'));
         return view('admin.LCKHShow', [
             'lckh' => $lckh,
@@ -95,12 +117,18 @@ class LckhController extends Controller
      */
     public function edit(Lckh_reports $lckh)
     {
-        $lckh = $lckh::where('user_id', Auth::id())->where('id', $lckh->id)->get();
+        // $lckh = $lckh::where('user_id', Auth::id())->where('id', $lckh->id)->get();
         // dd($lckh);
-        if (count($lckh) === 0) {
-            abort(404);
+        // if (count($lckh) === 0) {
+        //     abort(404);
+        // }
+        $user = auth()->user()->role->role;
+        if ($user == 'User' || $user == 'Keuangan') {
+            $this->authorize('lckh.show', $lckh);
+        } elseif ($user == 'Pengawas') {
+            $this->authorize('lckh.showPengawas', $lckh);
         }
-        $month = $lckh[0]->monthly_report;
+        $month = $lckh->monthly_report;
 
         // Ubah string menjadi objek Carbon
         $month = Carbon::parse($month);
@@ -110,7 +138,7 @@ class LckhController extends Controller
 
         return view('admin.LCKHEdit', [
             'users' => User::all(),
-            'lckh' => $lckh[0],
+            'lckh' => $lckh,
             'monthly_report' => $month,
         ]);
     }
@@ -120,10 +148,18 @@ class LckhController extends Controller
      */
     public function update(Request $request, Lckh_reports $lckh)
     {
-        $rules = [
-            'laporan_bulan' => 'required|date_format:Y-m',
-            'upload_document' => 'required|url',
-        ];
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+            $rules = [
+                'laporan_bulan' => 'required|date_format:Y-m',
+                'upload_document' => 'required|url',
+            ];
+        } elseif (auth()->user()->role->role == 'Administrator' || auth()->user()->role->role == 'Kepala kantor') {
+            $rules = [
+                'nama' => 'required',
+                'laporan_bulan' => 'required|date_format:Y-m',
+                'upload_document' => 'required|url',
+            ];
+        }
 
         $messages = [
             'laporan_bulan.required' => 'Laporan Bulan laporan wajib diisi.',
@@ -135,7 +171,10 @@ class LckhController extends Controller
         // Jika validasi berhasil, simpan data ke database
         $date = Carbon::parse($validateData['laporan_bulan'])->format('Y-m-d');
         // $user->save();
-        $lckh->user_id = Auth::id();
+        $lckh->user_id = $validateData['nama'];
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+            $lckh->user_id = Auth::id();
+        }
         $lckh->upload_document = $validateData['upload_document'];
         $lckh->monthly_report = $date;
         $lckh->save();

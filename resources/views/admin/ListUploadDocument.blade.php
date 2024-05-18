@@ -60,18 +60,17 @@
                             <div class="card-header">
                                 <h3 class="card-title">Filter Dokumen</h3>
                                 <br />
-                                 @if (Gate::check('auth.admin') || Gate::check('auth.pengawas') || Gate::check('auth.kepala-kantor')||Gate::check('auth.keuangan'))
+                                 @if (Gate::check('auth.admin')||Gate::check('auth.keuangan'))
                                 <form method="get" action="{{ route('document.filter') }}">
                                     <div class="d-md-flex" style="gap: 8px">
-                                        <div class="flex-grow-1 form-group">
+                                        <div class="w-100 form-group">
                                             <label for="tahun">Tahun:</label>
                                             <input type="number" min="2023" class="form-control" id="tahun"
                                                 name="tahun" />
                                         </div>
-                                        <div class="flex-grow-2 form-group">
+                                        <div class="w-100 form-group">
                                             <label for="bulan">Bulan:</label>
-                                            <select class="custom-select select2bs4" id="bulan" name="bulan">
-                                                <option value="" selected>Bulan</option>
+                                            <select class="custom-select select2" id="bulan" name="bulan">
                                                 <option value="1">Januari</option>
                                                 <option value="2">Februari</option>
                                                 <option value="3">Maret</option>
@@ -86,34 +85,19 @@
                                                 <option value="12">Desember</option>
                                             </select>
                                         </div>
-                                        <div class="flex-grow-2 form-group">
+                                        <div class="w-100 form-group">
                                             <label for="tempat_tugas">Tempat Tugas:</label>
-                                            <select class="custom-select select2bs4" id="tempat_tugas" name="tempat_tugas">
-                                                <option @readonly(true) selected value="0">Tempat Tugas</option>
-                                                @foreach ($work_places as $work_place)
-                                                    <option value="{{ $work_place->id }}">{{ $work_place->work_place }}
-                                                    </option>
-                                                @endforeach
+                                            <select class="custom-select select2bs4 select2WorkPlace" id="tempat_tugas" name="tempat_tugas">
                                             </select>
                                         </div>
-                                        <div class="flex-grow-1 form-group">
+                                        <div class="w-100 form-group">
                                             <label for="nama">Nama Pegawai:</label>
-                                            <select class="custom-select select2bs4" id="nama" name="nama">
-                                                <option @readonly(true) value="0">Nama</option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}
-                                                    </option>
-                                                @endforeach
+                                            <select class="custom-select select2User select2bs4" id="nama" name="nama">
                                             </select>
                                         </div>
-                                        <div class="flex-grow-1 form-group">
+                                        <div class="w-100 form-group">
                                             <label for="tipe_dokumen">Tipe Dokumen:</label>
-                                            <select class="custom-select select2bs4" id="tipe_dokumen" name="tipe_dokumen">
-                                                <option @readonly(true) value="0">Tipe Dokumen</option>
-                                                @foreach ($document_types as $data)
-                                                    <option value="{{ $data->id }}">{{ $data->name }}
-                                                    </option>
-                                                @endforeach
+                                            <select class="custom-select select2bs4 select2DocumentType" id="tipe_dokumen" name="tipe_dokumen">
                                             </select>
                                         </div>
                                     </div>
@@ -145,6 +129,7 @@
                                         <tr>
                                             <th>NO</th>
                                             <th>Nama User</th>
+                                            <th>NIP</th>
                                             <th>Nama Dokumen</th>
                                             <th>Jenis Dokumen</th>
                                             <th>Dokumen Bulan</th>
@@ -157,10 +142,11 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $data->user->name }}</td>
+                                                <td>{{ $data->user->nip }}</td>
                                                 <td>{{ $data->name }}</td>
                                                 <td>{{ $data->document_type->name }}</td>
                                                 <td>{{ $data->tanggal_upload }}</td>
-                                                <td class="date">{{ $data->created_at }}</td>
+                                                <td class="date">{{ $data->created_at->toDateString() }}</td>
 
                                                 <td>
                                                     <div class="btn-group">
@@ -201,6 +187,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama User</th>
+                                            <th>NIP</th>
                                             <th>Nama Dokumen</th>
                                             <th>Jenis Dokumen</th>
                                             <th>Dokumen Bulan</th>
@@ -265,15 +252,65 @@
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
-        $(function() {
+        $(document).ready(function() {
             //Initialize Select2 Elements
-            $(".select2").select2();
-
-            //Initialize Select2 Elements
-            $(".select2bs4").select2({
+            $(".select2").select2({
                 theme: "bootstrap4",
+                placeholder:'Bulan',
             });
 
+            //Initialize Select2 Elements
+            $(".select2User").select2({
+                theme: "bootstrap4",
+                placeholder:'Masukan Nama',
+                ajax: {
+                    url: "{{route('select2.dataUser')}}",
+                    processResults : function({data}){
+                        return{
+                            results : $.map(data,function (item) {
+                                return{
+                                    id:item.id,
+                                    text:item.name + ' - '+ item.nip
+                                }
+                            })
+                        }
+                    }
+                }
+            });
+            $(".select2WorkPlace").select2({
+                theme: "bootstrap4",
+                placeholder:'Tempat Tugas',
+                ajax: {
+                    url: "{{route('select2.dataWorkPlace')}}",
+                    processResults : function({data}){
+                        return{
+                            results : $.map(data,function (item) {
+                                return{
+                                    id:item.id,
+                                    text:item.work_place
+                                }
+                            })
+                        }
+                    }
+                }
+            });
+            $(".select2DocumentType").select2({
+                theme: "bootstrap4",
+                placeholder:'Tipe Dokumen',
+                ajax: {
+                    url: "{{route('select2.dataDocumentType')}}",
+                    processResults : function({data}){
+                        return{
+                            results : $.map(data,function (item) {
+                                return{
+                                    id:item.id,
+                                    text:item.name
+                                }
+                            })
+                        }
+                    }
+                }
+            });
         });
     </script>
 @endsection

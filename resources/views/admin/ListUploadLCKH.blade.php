@@ -61,7 +61,6 @@
                                 <h3 class="card-title">Filter LCKH</h3>
                                 <br />
                                 <form method="get" action="{{ route('listlckh.filter') }}">
-                                    @csrf
                                     <div class="d-md-flex" style="gap: 8px">
                                         <div class="flex-grow-1 form-group">
                                             <label for="tahun">Tahun:</label>
@@ -70,7 +69,7 @@
                                         </div>
                                         <div class="flex-grow-2 form-group">
                                             <label for="bulan">Bulan:</label>
-                                            <select class="custom-select select2bs4" id="bulan" name="bulan">
+                                            <select class="custom-select select2" id="bulan" name="bulan">
                                                 <option value="" selected>Bulan</option>
                                                 <option value="1">Januari</option>
                                                 <option value="2">Februari</option>
@@ -86,24 +85,24 @@
                                                 <option value="12">Desember</option>
                                             </select>
                                         </div>
-                                        <div class="flex-grow-2 form-group">
-                                            <label for="tempat_tugas">Tempat Tugas:</label>
-                                            <select class="custom-select select2bs4" id="tempat_tugas" name="tempat_tugas">
-                                                <option @readonly(true) selected value="0">Tempat Tugas</option>
-                                                @foreach ($work_places as $work_place)
-                                                    <option value="{{ $work_place->id }}">{{ $work_place->work_place }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        @if (!auth()->user()->role->role == 'Pengawas')
+                                            <div class="flex-grow-2 form-group">
+                                                <label for="tempat_tugas">Tempat Tugas:</label>
+                                                <select class="custom-select select2bs4" id="tempat_tugas"
+                                                    name="tempat_tugas">
+                                                    <option @readonly(true) selected value="0">Tempat Tugas</option>
+                                                    @foreach ($work_places as $work_place)
+                                                        <option value="{{ $work_place->id }}">{{ $work_place->work_place }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
+
                                         <div class="flex-grow-1 form-group">
                                             <label for="nama">Nama Pegawai:</label>
                                             <select class="custom-select select2bs4" id="nama" name="nama">
-                                                <option @readonly(true) value="0">Nama</option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}
-                                                    </option>
-                                                @endforeach
+
                                             </select>
                                         </div>
 
@@ -234,16 +233,34 @@
     </script>
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
     <script>
-        $(function() {
+        $(document).ready(function() {
             //Initialize Select2 Elements
-            $(".select2").select2();
+            $(".select2").select2({
+                theme: "bootstrap4",
+            });
 
             //Initialize Select2 Elements
             $(".select2bs4").select2({
                 theme: "bootstrap4",
+                placeholder: 'Masukan Nama',
+                ajax: {
+                    url: "{{ route('select2.dataUser') }}",
+                    processResults: function({
+                        data
+                    }) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name + ' - ' + item.nip
+                                }
+                            })
+                        }
+                    }
+                }
             });
-
         });
     </script>
 @endsection

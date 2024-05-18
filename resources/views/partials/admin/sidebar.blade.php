@@ -44,8 +44,7 @@
                     </li>
                     <li class="nav-item">
 
-                        <a href="{{ route('lckh.index') }}"
-                            class="nav-link {{ Request::is('lckh*') ? 'active' : '' }}">
+                        <a href="{{ route('lckh.index') }}" class="nav-link {{ Request::is('lckh*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-upload"></i>
                             <p>Upload LCKH</p>
                         </a>
@@ -60,10 +59,19 @@
                         </li>
                     @endif
                     <li class="nav-item">
-                        <a href="{{ route('document.index') }}" class="nav-link {{ Request::is('document*') ? 'active' : '' }}">
+                        @if ( Request::is('document-*') )
+                        <a href="{{ route('document.index') }}"
+                            class="nav-link ">
                             <i class="nav-icon fas fa-envelope"></i>
                             <p>List Upload Dokumen</p>
                         </a>
+                        @else
+                        <a href="{{ route('document.index') }}"
+                            class="nav-link {{ Request::is('document*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-envelope"></i>
+                            <p>List Upload Dokumen</p>
+                        </a>
+                        @endif
                     </li>
                     @if (Gate::check('auth.admin'))
                         <li class="nav-item">

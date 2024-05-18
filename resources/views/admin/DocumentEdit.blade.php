@@ -61,18 +61,13 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="nama">Nama User</label>
-                                            <select class="form-control select2bs4 @error('nama')is-invalid @enderror"
+                                            <select class="form-control select2User @error('nama')is-invalid @enderror"
                                                 value="{{ old('nama') }}" style="width: 100%" name="nama"
                                                 id="nama">
-                                                @foreach ($users as $user)
-                                                    @if ($user->id == $document->user_id)
-                                                        <option selected="selected" value="{{ $user->id }}">
-                                                            {{ $user->name }}
+                                                        <option selected="selected" value="{{ $document->user_id }}">
+                                                            {{ $document->user->name }}
                                                         </option>
-                                                    @else
-                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                    @endif
-                                                @endforeach
+
                                             </select>
                                             @error('nama')
                                                 <div id="validationServer04Feedback" class="invalid-feedback">
@@ -96,20 +91,12 @@
                                         <div class="form-group ">
                                             <label for="tipe_dokumen">Tipe Dokumen</label>
                                             <select
-                                                class="form-control select2bs4 @error('tipe_dokumen')is-invalid @enderror"
+                                                class="form-control select2DocumentType @error('tipe_dokumen')is-invalid @enderror"
                                                 value="{{ old('tipe_dokumen') }}" style="width: 100%" name="tipe_dokumen"
                                                 id="tipe_dokumen">
-                                                @foreach ($document_types as $document_type)
-                                                    @if ($document_type->id == $document->document_type_id)
-                                                        <option selected="selected" value="{{ $document_type->id }}">
-                                                            {{ $document_type->name }}
+                                                        <option selected="selected" value="{{ $document->document_type->id }}">
+                                                            {{ $document->document_type->name }}
                                                         </option>
-                                                    @else
-                                                        <option value="{{ $document_type->id }}">
-                                                            {{ $document_type->name }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
                                             </select>
                                             @error('tipe_dokumen')
                                                 <div id="validationServer04Feedback" class="invalid-feedback">
@@ -189,9 +176,50 @@
             //Initialize Select2 Elements
             $(".select2").select2();
             bsCustomFileInput.init();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             //Initialize Select2 Elements
-            $(".select2bs4").select2({
+
+            //Initialize Select2 Elements
+            $(".select2User").select2({
                 theme: "bootstrap4",
+                placeholder: 'Masukan Nama',
+                ajax: {
+                    url: "{{ route('select2.dataUser') }}",
+                    processResults: function({
+                        data
+                    }) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name + ' - ' + item.nip
+                                }
+                            })
+                        }
+                    }
+                }
+            });
+            $(".select2DocumentType").select2({
+                theme: "bootstrap4",
+                placeholder: 'Tipe Dokumen',
+                ajax: {
+                    url: "{{ route('select2.dataDocumentType') }}",
+                    processResults: function({
+                        data
+                    }) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name
+                                }
+                            })
+                        }
+                    }
+                }
             });
         });
     </script>

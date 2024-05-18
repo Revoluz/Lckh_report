@@ -13,6 +13,13 @@ class ListUploadLCKHController extends Controller
     public function index()
     {
         $lckh = Lckh_reports::all();
+        if(auth()->user()->role->role=="Pengawas"){
+            $user = auth()->user();
+            // dd($user);
+            $lckh = Lckh_reports::join('users', 'users.id', '=', 'lckh_reports.user_id',)
+            ->where('work_place_id', $user->work_place->id)->select('lckh_reports.*')->get();
+            // dd($lckh);
+        }
         foreach ($lckh as $data) {
             $nama_bulan = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
             $data->nama_bulan = $nama_bulan;
@@ -40,6 +47,9 @@ class ListUploadLCKHController extends Controller
         $tempat_tugas = $request->input('tempat_tugas');
         $nama = $request->input('nama');
 
+        if(auth()->user()->role->role== 'Pengawas'){
+            $tempat_tugas = '';
+        }
         $users = User::where('work_place_id', $tempat_tugas)->get();
 
         $user_ids = [];
@@ -63,9 +73,14 @@ class ListUploadLCKHController extends Controller
         if ($nama) {
             $query->where('user_id', $nama);
         }
+        if(auth()->user()->role->role== 'Pengawas'){
+            $user = auth()->user();
+            $query->join('users', 'users.id', '=', 'lckh_reports.user_id',)
+            ->where('work_place_id', $user->work_place->id)->select('lckh_reports.*')->get();
+        }
         $lckh_reports = $query->get();
         foreach ($lckh_reports as $data) {
-            $data->nama_bulan  = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
+            $data['nama_bulan']  = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
             // $data->nama_bulan = $nama_bulan;
         }
         return view('admin.ListUploadLCKH', [

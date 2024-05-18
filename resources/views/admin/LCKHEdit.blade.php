@@ -26,13 +26,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Upload LCKH</h1>
+                        <h1 class="m-0">Edit LCKH</h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Upload LCKH</li>
+                            <li class="breadcrumb-item active">Edit LCKH</li>
                         </ol>
                     </div>
                     <!-- /.col -->
@@ -51,12 +51,29 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Upload LCKH</h3>
+                                <h3 class="card-title">Edit LCKH</h3>
                             </div>
                             <form action="{{ route('lckh.update', ['lckh' => $lckh->id]) }}" method="POST">
                                 @csrf
                                 @method('put')
                                 <div class="card-body d-flex flex-wrap">
+                                    @if (Gate::check('auth.admin') || Gate::check('auth.kepala-kantor'))
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="nama">Nama</label>
+                                            <select class="form-control select2bs4 @error('nama')is-invalid @enderror"
+                                                value="{{ old('nama') }}" style="width: 100%" name="nama"
+                                                id="nama">
+                                                    <option value="{{ $lckh->user_id }}" selected>{{ $lckh->user->name }}</option>
+                                            </select>
+                                            @error('nama')
+                                                <div id="validationServer04Feedback" class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    @endif
                                     <div class="form-group col-lg-6">
                                         <label for="laporan_bulan">Laporan Bulan</label>
                                         <input type="month" value="{{ old('laporan_bulan', $monthly_report) }}"
@@ -102,14 +119,30 @@
 @section('plugins')
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    <script>
-        $(function() {
+        <script>
+        $(document).ready(function() {
             //Initialize Select2 Elements
-            $(".select2").select2();
+            $(".select2").select2({
+                theme: "bootstrap4",
+            });
 
             //Initialize Select2 Elements
             $(".select2bs4").select2({
                 theme: "bootstrap4",
+                placeholder:'Masukan Nama',
+                ajax: {
+                    url: "{{route('select2.dataUser')}}",
+                    processResults : function({data}){
+                        return{
+                            results : $.map(data,function (item) {
+                                return{
+                                    id:item.id,
+                                    text:item.name + ' - '+ item.nip
+                                }
+                            })
+                        }
+                    }
+                }
             });
         });
     </script>

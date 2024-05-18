@@ -17,7 +17,12 @@ class DokumenController extends Controller
      */
     public function index()
     {
-        $documents = Documents::all();
+        $userRole =auth()->user()->role->role ;
+        if($userRole=='User'|| $userRole=='Kepala kantor'|| $userRole=='Pengawas' ){
+            $documents =  auth()->user()->documents;
+        }else{
+            $documents = Documents::all();
+        }
         foreach ($documents as $data) {
             $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
             $data->tanggal_upload = $tanggal_upload;
@@ -92,6 +97,10 @@ class DokumenController extends Controller
     public function show(Documents $document)
     {
         // dd($document);
+        $userRole = auth()->user()->role->role;
+        if ($userRole == 'User' || $userRole == 'Kepala kantor' || $userRole == 'Pengawas') {
+            $this->authorize('document.show', $document);
+        }
         $nama_bulan = ucfirst(Carbon::parse($document->document_date)->locale('id')->isoFormat('YYYY MMMM'));
 
         $file = Storage::url('documents/' . $document->filename);
@@ -109,14 +118,15 @@ class DokumenController extends Controller
      */
     public function edit(Documents $document)
     {
-
+        $userRole = auth()->user()->role->role;
+        if ($userRole == 'User' || $userRole == 'Kepala kantor' || $userRole =='Pengawas' || $userRole == 'Keuangan') {
+            $this->authorize('document.show', $document);
+        }
         $nama_bulan = Carbon::parse($document->document_date)->format('Y-m');
 
         return view('admin.DocumentEdit', [
             'document' => $document,
             "nama_bulan" => $nama_bulan,
-            'users' => User::all(),
-            'document_types' => Document_types::all(),
         ]);
     }
 
@@ -208,9 +218,10 @@ class DokumenController extends Controller
         }
         $documents = $query->get();
         foreach ($documents as $data) {
-            $data->tanggal_upload  = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
+            $data['tanggal_upload']  = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
             // $data->nama_bulan = $nama_bulan;
         }
+
         return view('admin.ListUploadDocument', [
             'users' => User::all(),
             'work_places' => Work_place::all(),
