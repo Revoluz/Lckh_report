@@ -34,8 +34,10 @@ use App\Http\Controllers\ListUploadLCKHKepalaKantorController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
-Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticated');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login');
+    Route::post('/authenticate', [LoginController::class, 'authenticate'])->name('authenticated');
+});
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource('/lckh', LckhController::class)->names(['index' => 'lckh.index', 'create' => 'lckh.create', 'store' => 'lckh.store', 'show' => 'lckh.show', 'edit' => 'lckh.edit', 'update' => 'lckh.update', 'destroy' => 'lckh.destroy']);
@@ -47,32 +49,34 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/document/filter/document', [DokumenController::class, 'filterDocument'])->name('document.filter');
     Route::middleware(['can:auth.3'])->group(function () {
         Route::get('/rekap-data', [RecapDataController::class, 'index'])->name('recapData.index');
+        Route::get('/rekap-data/user', [RecapDataController::class, 'getRecapUser'])->name('recapData.user');
+        Route::get('/rekap-data/lckh', [RecapDataController::class, 'getRecapLCKH'])->name('recapData.lckh');
         Route::get('/list-upload-lckh', [ListUploadLCKHController::class, 'index'])->name('listlckh.index');
         Route::get('/list-upload-lckh/{lckh}', [ListUploadLCKHController::class, 'show'])->name('listlckh.show');
         Route::get('/list-upload-lckh/filter/lckh', [ListUploadLCKHController::class, 'filter'])->name('listlckh.filter');
-        Route::get('data/user',[DataSelect2Controller::class,'dataUser'])->name('select2.dataUser');
+        Route::get('data/user', [DataSelect2Controller::class, 'dataUser'])->name('select2.dataUser');
         Route::get('data/work-place', [DataSelect2Controller::class, 'dataWorkPlace'])->name('select2.dataWorkPlace');
         Route::get('data/document-type', [DataSelect2Controller::class, 'dataDocumentType'])->name('select2.dataDocumentType');
     });
     // admin
     Route::middleware(['can:auth.admin'])->group(function () {
-    Route::resource('/user', UserAdminController::class)->names(['index' => 'userAdmin.index', 'create' => 'userAdmin.create', 'store' => 'userAdmin.store', 'update' => 'userAdmin.update', 'destroy' => 'userAdmin.destroy']);
-    Route::get('/user/{nip}', [UserAdminController::class, 'show'])->name('userAdmin.show');
+        Route::resource('/user', UserAdminController::class)->names(['index' => 'userAdmin.index', 'create' => 'userAdmin.create', 'store' => 'userAdmin.store', 'update' => 'userAdmin.update', 'destroy' => 'userAdmin.destroy']);
+        Route::get('/user/{nip}', [UserAdminController::class, 'show'])->name('userAdmin.show');
 
-    Route::get('/user/{nip}/edit', [UserAdminController::class, 'edit'])->name('userAdmin.edit');
+        Route::get('/user/{nip}/edit', [UserAdminController::class, 'edit'])->name('userAdmin.edit');
 
-    Route::resource('/tempat-tugas', WorkPlaceController::class)
-        ->names([
-            'index' => 'workPlace.index',
-            'create' => 'workPlace.create',
-            'store' => 'workPlace.store',
-            'show' => 'workPlace.show',
-            'update' => 'workPlace.update',
-            'destroy' => 'workPlace.destroy',
-        ])->parameter('tempat-tugas', 'work_place');
-    Route::get('/role', [RoleAdminController::class, 'index'])->name('role.index');
-    Route::get('/role/{role}', [RoleAdminController::class, 'show'])->name('role.show');
-    Route::resource('/document-type', DocumentTypeAdminController::class);
+        Route::resource('/tempat-tugas', WorkPlaceController::class)
+            ->names([
+                'index' => 'workPlace.index',
+                'create' => 'workPlace.create',
+                'store' => 'workPlace.store',
+                'show' => 'workPlace.show',
+                'update' => 'workPlace.update',
+                'destroy' => 'workPlace.destroy',
+            ])->parameter('tempat-tugas', 'work_place');
+        Route::get('/role', [RoleAdminController::class, 'index'])->name('role.index');
+        Route::get('/role/{role}', [RoleAdminController::class, 'show'])->name('role.show');
+        Route::resource('/document-type', DocumentTypeAdminController::class)->except('show','create');
     });
 
     // Route::middleware(['User'])->group(function () {

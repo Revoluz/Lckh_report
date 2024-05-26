@@ -7,11 +7,12 @@ use App\Models\Role;
 use App\Models\Status;
 use App\Models\Work_place;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -74,5 +75,12 @@ class User extends Authenticatable
     public function lckh_reports(): HasMany
     {
         return $this->hasMany(Lckh_reports::class,'user_id');
+    }
+    public function avatar()
+    {
+        if ($this->image && Storage::exists('public/images/user/' . $this->image)) {
+            return asset('storage/images/user/' . $this->image);
+        }
+        return "https://api.dicebear.com/8.x/initials/svg?seed={$this->name}&backgroundColor=b6e3f4,c0aede,d1d4f9";
     }
 }

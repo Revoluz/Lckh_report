@@ -7,6 +7,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+
 @endsection
 @section('content')
     <!-- Main Sidebar Container -->
@@ -72,7 +74,9 @@
                                         <i class="ml-1 fas fa-plus"></i>
                                     </button>
                                 </a>
-                                <table id="example1" class="table table-bordered table-striped">
+                                {{ $dataTable->table() }}
+
+                                {{-- <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -138,7 +142,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -160,13 +164,13 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
+    {{-- <script>
         $(function() {
             $("#example1")
                 .DataTable({
@@ -190,19 +194,9 @@
                 responsive: true,
             });
         });
-    </script>
-    <!-- Select2 -->
-    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    <script>
-        $(function() {
-            //Initialize Select2 Elements
-            $(".select2").select2();
+    </script> --}}
+<script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+<script src="/vendor/datatables/buttons.server-side.js"></script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
-            //Initialize Select2 Elements
-            $(".select2bs4").select2({
-                theme: "bootstrap4",
-            });
-
-        });
-    </script>
 @endsection

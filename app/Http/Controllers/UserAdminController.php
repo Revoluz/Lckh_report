@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UsersDataTable;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Status;
@@ -16,10 +17,11 @@ class UserAdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
 
-        return view('admin.UserList', ['users' => User::all()]);
+        // return view('admin.UserList', ['users' => User::all()]);
+        return $dataTable->render('admin.UserList');
     }
 
     /**
@@ -102,13 +104,13 @@ class UserAdminController extends Controller
      */
     public function show($nip)
     {
-        $user = User::where('nip', $nip)->get();
+        // dd($nip);
+        $user = User::where('nip', $nip)->first();
         $id = Auth::id();
-        if (!$user) {
-            abort(403);
-        }
+        // dd($user);
+
         return view('admin.UserShow', [
-            'user' => auth()->user(),
+            'user' => $user,
             'id' => $id,
         ]);
     }

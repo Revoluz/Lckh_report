@@ -1,8 +1,8 @@
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex flex-column">
-                <div class="image w-100 p-0">
-                    <img src="{{ asset('storage/images/user/' . auth()->user()->image) }}" class="w-100 rounded"
+                <div class="image w-100 p-0 text-center">
+                    <img src="{{ auth()->user()->avatar() }}" class="w-50 rounded "
                         alt="User Image" />
                 </div>
                 <div class="mx-2 my-2">

@@ -59,8 +59,9 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                {{ $dataTable->table() }}
 
-
+{{--
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
@@ -93,7 +94,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -117,7 +118,7 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
@@ -147,7 +148,7 @@
                 responsive: true,
             });
         });
-    </script>
+    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
@@ -162,4 +163,8 @@
 
         });
     </script>
+            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endsection

@@ -3,11 +3,9 @@
 namespace App\DataTables;
 
 use Carbon\Carbon;
-use App\Models\LCKH;
-use App\Models\Lckh_reports;
+use App\Models\Documents;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
@@ -15,7 +13,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class LCKHDataTable extends DataTable
+class DocumentsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -26,37 +24,34 @@ class LCKHDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->editColumn('monthly_report', function ($data) {
-
-                $nama_bulan = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
-                return $nama_bulan;
-            })
-            ->editColumn('created_at', function ($data) {
+            ->addColumn('name-user', function ($data) {
+                return $data->user->name;
+            })->addColumn('nip', function ($data) {
+                return $data->user->nip;
+            })->editColumn('document_date', function ($data) {
+                $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat(' MMMM YYYY'));
+                return $tanggal_upload;
+            })->editColumn('created_at', function ($data) {
 
                 $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat('DD MMMM YYYY'));
                 return $tanggal_upload;
-            })
-            ->editColumn('id', function ($data) {
-                return view('partials.datatable.CRUD-LCKH', ['data' => $data]);
-                // return $data->id;
-            })
-            ->addColumn('nip', function ($data) {
-                return $data->user->nip;
-            })
-            ->addColumn('name', function ($data) {
-                return $data->user->name;
-            })
-            ->addColumn('work_place', function ($data) {
-                return $data->user->work_place->work_place;
-            });
+            })->editColumn('id', function ($data) {
+            return view('partials.datatable.CRUD-Document', ['data' => $data]);
+            // return $data->id;
+        });
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Lckh_reports $model): QueryBuilder
+    public function query(Documents $model): QueryBuilder
     {
-        return $model->where('user_id', $this->user->id)->orderBy('monthly_report', 'desc')->newQuery();
+        $userRole = auth()->user()->role->role;
+        if ($userRole == 'User' || $userRole == 'Kepala kantor' || $userRole == 'Pengawas') {
+            // $documents =  auth()->user()->documents;
+            return $model->where('user_id', auth()->user()->id)->newQuery();
+        }
+        return $model->newQuery();
     }
 
     /**
@@ -65,7 +60,7 @@ class LCKHDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('lckh-table')
+            ->setTableId('documents-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom('lBfrtip')
@@ -73,13 +68,12 @@ class LCKHDataTable extends DataTable
             ->selectStyleSingle()
             ->responsive(true)
             ->autoWidth(false)
-            // ->lengthChange(true)
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),
                 Button::make('reset'),
                 Button::make('reload')
-            ])->pageLength(10);
+            ]);
     }
 
     /**
@@ -89,14 +83,13 @@ class LCKHDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
+            Column::make('name-user')->title('Nama User'),
             Column::make('nip')->title('NIP'),
-            Column::make('name')->title('Name'),
-            Column::make('work_place')->title('Tempat Tugas'),
-            Column::make('monthly_report')->title('Laporan Bulan'),
+            Column::make('name')->title('Nama Dokumen'),
+            Column::make('document_type.name')->title('Tipe Dokumen'),
+            Column::make('document_date')->title('Dokumen Bulan'),
             Column::make('created_at')->title('Tanggal Upload'),
-            Column::make('upload_document')->title('Link Dokumen'),
             Column::make('id')->title('Action')->searchable(false)->orderable(false),
-            // Column::make('user_id')->title('Action')->orderable(false)
         ];
     }
 
@@ -105,6 +98,6 @@ class LCKHDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'LCKH_' . date('YmdHis');
+        return 'Documents_' . date('YmdHis');
     }
 }

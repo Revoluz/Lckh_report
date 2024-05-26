@@ -59,7 +59,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                {{-- <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -84,7 +84,10 @@
                                             <th>Jumlah Upload LCKH</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
+                                {{ $lckhDatatable->table(['id'=>'lckhDatatable']) }}
+                                {{-- {!! $dataTableCash->table(['id'=>'dataTableCash']) !!} --}}
+
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -100,7 +103,9 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example2" class="table table-bordered table-striped">
+                                {{ $userDataTable->table(['id'=>'userDataTable']) }}
+
+                                {{-- <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -124,7 +129,7 @@
                                             <th>Jumlah User</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -148,7 +153,7 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
@@ -184,6 +189,11 @@
                 .container()
                 .appendTo("#example2_wrapper .col-md-6:eq(0)");
         });
-    </script>
+    </script> --}}
     <!-- Select2 -->
+                <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    {{ $lckhDatatable->scripts(attributes: ['type' => 'module']) }}
+    {{ $userDataTable->scripts(attributes: ['type' => 'module']) }}
 @endsection

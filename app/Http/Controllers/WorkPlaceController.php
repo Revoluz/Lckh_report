@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\WorksPlaceDataTable;
+use App\DataTables\WorksPlaceShowDataTable;
 use App\Models\User;
 use App\Models\Work_place;
 use Illuminate\Http\Request;
@@ -11,9 +13,10 @@ class WorkPlaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(WorksPlaceDataTable $dataTable)
     {
-        return view('admin.WorkPlace', ['workPlaces' => Work_place::all()]);
+        // return view('admin.WorkPlace', ['workPlaces' => Work_place::all()]);
+        return $dataTable->render('admin.WorkPlace');
     }
 
     /**
@@ -52,10 +55,11 @@ class WorkPlaceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Work_place $work_place)
+    public function show(Work_place $work_place,WorksPlaceShowDataTable $dataTable)
     {
-        $users = User::where('work_place_id', $work_place->id)->get();
-        return view('admin.WorkPlaceShow', ['users' => $users]);
+        // $users = User::where('work_place_id', $work_place->id)->get();
+        // return view('admin.WorkPlaceShow', ['users' => $users]);
+        return $dataTable->with('id',$work_place->id)->render('admin.WorkPlaceShow');
     }
 
     /**

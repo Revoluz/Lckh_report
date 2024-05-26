@@ -3,11 +3,11 @@
 namespace App\DataTables;
 
 use Carbon\Carbon;
-use App\Models\LCKH;
+use App\Models\User;
+use App\Models\searchLCKH;
 use App\Models\Lckh_reports;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
@@ -15,7 +15,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class LCKHDataTable extends DataTable
+class SearchLCKHDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -56,7 +56,42 @@ class LCKHDataTable extends DataTable
      */
     public function query(Lckh_reports $model): QueryBuilder
     {
-        return $model->where('user_id', $this->user->id)->orderBy('monthly_report', 'desc')->newQuery();
+        $tahun = request()->input('tahun');
+        $bulan = request()->input('bulan');
+        $tempat_tugas = request()->input('tempat_tugas');
+        $nama = request()->input('nama');
+        $query = $model->query();
+
+        if (auth()->user()->role->role == 'Pengawas') {
+            $tempat_tugas = '';
+            $query = $query->where('work_place_id', auth()->user()->work_place->id);
+        } else {
+            // Filter by tempat_tugas if provided and user is not Pengawas
+            if ($tempat_tugas) {
+                $query = $query->whereHas('user', function ($userQuery) use ($tempat_tugas) {
+                    $userQuery->where('work_place_id', $tempat_tugas);
+                });
+            }
+        }
+
+        if ($tahun) {
+            $query->whereYear('monthly_report', $tahun);
+        }
+
+        if ($bulan) {
+            $query->whereMonth('monthly_report', $bulan);
+        }
+
+
+        if ($nama) {
+            $query->where('user_id', $nama);
+        }
+        if(auth()->user()->role->role== 'Pengawas'){
+            $user = auth()->user();
+            $query->join('users', 'users.id', '=', 'lckh_reports.user_id',)
+            ->where('work_place_id', $user->work_place->id)->select('lckh_reports.*')->get();
+        }
+        return $query->newQuery();
     }
 
     /**
@@ -73,13 +108,13 @@ class LCKHDataTable extends DataTable
             ->selectStyleSingle()
             ->responsive(true)
             ->autoWidth(false)
-            // ->lengthChange(true)
+            ->lengthChange(true)
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),
                 Button::make('reset'),
                 Button::make('reload')
-            ])->pageLength(10);
+            ])->pageLength(2);
     }
 
     /**
@@ -96,7 +131,6 @@ class LCKHDataTable extends DataTable
             Column::make('created_at')->title('Tanggal Upload'),
             Column::make('upload_document')->title('Link Dokumen'),
             Column::make('id')->title('Action')->searchable(false)->orderable(false),
-            // Column::make('user_id')->title('Action')->orderable(false)
         ];
     }
 
@@ -105,6 +139,6 @@ class LCKHDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'LCKH_' . date('YmdHis');
+        return 'searchLCKH_' . date('YmdHis');
     }
 }

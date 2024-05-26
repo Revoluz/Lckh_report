@@ -3,11 +3,11 @@
 namespace App\DataTables;
 
 use Carbon\Carbon;
-use App\Models\LCKH;
+use App\Models\User;
+use App\Models\ListLCKH;
 use App\Models\Lckh_reports;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
@@ -15,7 +15,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class LCKHDataTable extends DataTable
+class ListLCKHDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -56,7 +56,14 @@ class LCKHDataTable extends DataTable
      */
     public function query(Lckh_reports $model): QueryBuilder
     {
-        return $model->where('user_id', $this->user->id)->orderBy('monthly_report', 'desc')->newQuery();
+        if (auth()->user()->role->role == "Pengawas") {
+            $user = auth()->user();
+            // dd($user);
+            $model = $model->join('users', 'users.id', '=', 'lckh_reports.user_id',)
+            ->where('work_place_id', $user->work_place->id)->select('lckh_reports.*');
+            // dd($lckh);
+        }
+        return $model->orderBy('monthly_report', 'desc')->newQuery();
     }
 
     /**
@@ -96,7 +103,6 @@ class LCKHDataTable extends DataTable
             Column::make('created_at')->title('Tanggal Upload'),
             Column::make('upload_document')->title('Link Dokumen'),
             Column::make('id')->title('Action')->searchable(false)->orderable(false),
-            // Column::make('user_id')->title('Action')->orderable(false)
         ];
     }
 
@@ -105,6 +111,6 @@ class LCKHDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'LCKH_' . date('YmdHis');
+        return 'ListLCKH_' . date('YmdHis');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\DocumentsDataTable;
+use App\DataTables\SearchDocumentDataTable;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Documents;
@@ -15,26 +17,27 @@ class DokumenController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(DocumentsDataTable $dataTable)
     {
-        $userRole =auth()->user()->role->role ;
-        if($userRole=='User'|| $userRole=='Kepala kantor'|| $userRole=='Pengawas' ){
-            $documents =  auth()->user()->documents;
-        }else{
-            $documents = Documents::all();
-        }
-        foreach ($documents as $data) {
-            $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
-            $data->tanggal_upload = $tanggal_upload;
-            // $data->created_at = preg_replace("/00:00:00/", '',  $data->created_at->toDateString());
-        }
+        // $userRole =auth()->user()->role->role ;
+        // if($userRole=='User'|| $userRole=='Kepala kantor'|| $userRole=='Pengawas' ){
+        //     $documents =  auth()->user()->documents;
+        // }else{
+        //     $documents = Documents::all();
+        // }
+        // foreach ($documents as $data) {
+        //     $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
+        //     $data->tanggal_upload = $tanggal_upload;
+        //     // $data->created_at = preg_replace("/00:00:00/", '',  $data->created_at->toDateString());
+        // }
         // dd($documents);
-        return view('admin.ListUploadDocument', [
-            'users' => User::all(),
-            'work_places' => Work_place::all(),
-            'document_types' => Document_types::all(),
-            'documents' => $documents,
-        ]);
+        // return view('admin.ListUploadDocument', [
+            // 'users' => User::all(),
+            // 'work_places' => Work_place::all(),
+            // 'document_types' => Document_types::all(),
+            // 'documents' => $documents,
+        // ]);
+        return $dataTable->render('admin.ListUploadDocument');
     }
 
     /**
@@ -182,52 +185,23 @@ class DokumenController extends Controller
         $document->delete();
         return redirect()->route('document.index')->with('success', 'Berhasil Menghapus data Dokumen');
     }
-    public function filterDocument(Request $request)
+    public function filterDocument(SearchDocumentDataTable $dataTable)
     {
-        $tahun = $request->input('tahun');
-        $bulan = $request->input('bulan');
-        $tempat_tugas = $request->input('tempat_tugas');
-        $nama = $request->input('nama');
-        $tipe_dokumen = $request->input('tipe_dokumen');
 
-        $users = User::where('work_place_id', $tempat_tugas)->get();
+        // $documents = $query->get();
+        // foreach ($documents as $data) {
+        //     $data['tanggal_upload']  = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
+        //     // $data->nama_bulan = $nama_bulan;
+        // }
 
-        $user_ids = [];
-        foreach ($users as $user) {
-            $user_ids[] = $user->id;
-        }
+        // return view('admin.ListUploadDocument', [
+        //     'users' => User::all(),
+        //     'work_places' => Work_place::all(),
+        //     'document_types' => Document_types::all(),
+        //     'documents' => $documents,
+        // ]);
+        return $dataTable->render('admin.ListUploadDocument');
 
-        $query = Documents::query();
-        if ($tahun) {
-            $query->whereYear('document_date', $tahun);
-        }
-
-        if ($bulan) {
-            $query->whereMonth('document_date', $bulan);
-        }
-
-        if ($tempat_tugas) {
-            $query->whereIn('user_id', $user_ids);
-        }
-
-        if ($nama) {
-            $query->where('user_id', $nama);
-        }
-        if ($tipe_dokumen) {
-            $query->where('document_type_id', $tipe_dokumen);
-        }
-        $documents = $query->get();
-        foreach ($documents as $data) {
-            $data['tanggal_upload']  = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
-            // $data->nama_bulan = $nama_bulan;
-        }
-
-        return view('admin.ListUploadDocument', [
-            'users' => User::all(),
-            'work_places' => Work_place::all(),
-            'document_types' => Document_types::all(),
-            'documents' => $documents,
-        ]);
     }
     public function downloadDocument(Documents $document)
     {

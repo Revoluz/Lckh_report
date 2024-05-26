@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\DocumentsDataTable;
+use App\DataTables\DocumentsTypeDataTable;
+use App\DataTables\LCKHDataTable;
 use App\Models\User;
 use App\Models\Documents;
 use App\Models\Work_place;
@@ -15,9 +18,10 @@ class DocumentTypeAdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(DocumentsTypeDataTable $dataTable)
     {
-        return view('admin.DocumentType', ['documentTypes' => Document_types::all()]);
+        return $dataTable->render("admin.DocumentType");
+        // return view('admin.DocumentType', ['documentTypes' => Document_types::all()]);
     }
 
     /**
@@ -59,18 +63,20 @@ class DocumentTypeAdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Document_types $document_type)
-    {
-        // dd($document_type);
-        $documents = Documents::where('document_type_id', $document_type->id)->get();
+    // public function show(Document_types $document_type ,DocumentsDataTable $dataTable)
+    // {
+    //     // dd($document_type);
+    //     // $documents = Documents::where('document_type_id', $document_type->id)->get();
 
-        return view('admin.ListUploadDocument', [
-            'users' => User::all(),
-            'work_places' => Work_place::all(),
-            'document_types' => Document_types::all(),
-            'documents' => $documents,
-        ]);
-    }
+
+    //     // return view('admin.ListUploadDocument', [
+    //     //     // 'users' => User::all(),
+    //     //     // 'work_places' => Work_place::all(),
+    //     //     // 'document_types' => Document_types::all(),
+    //     //     'documents' => $documents,
+    //     // ]);
+    //     return $dataTable->with('document_type',$document_type)->render('admin.ListUploadDocument');
+    // }
 
     /**
      * Show the form for editing the specified resource.

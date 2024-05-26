@@ -2,31 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\LCKHDataTable;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Lckh_reports;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Mockery\Undefined;
+// use Mockery\Undefined;
+
 
 class LckhController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(LCKHDataTable $dataTable)
     {
-        $lckh = Lckh_reports::where('user_id', Auth::id())->get();
-        foreach ($lckh as $data) {
-            $nama_bulan = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
-            $data->nama_bulan = $nama_bulan;
-            $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat('MMMM YYYY'));
-            $data->tanggal_upload = $tanggal_upload;
-        }
-
-        return view('admin.LCKHList', [
-            'lckh' => $lckh,
-        ]);
+        // $lckh = Lckh_reports::where('user_id', Auth::id())->get();
+        // foreach ($lckh as $data) {
+        //     $nama_bulan = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
+        //     $data->nama_bulan = $nama_bulan;
+        //     $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat('MMMM YYYY'));
+        //     $data->tanggal_upload = $tanggal_upload;
+        // }
+        // dd($lckh);
+        $user = Auth::user();
+        return $dataTable->with('user',$user)->render('admin.LCKHList');
     }
 
     /**

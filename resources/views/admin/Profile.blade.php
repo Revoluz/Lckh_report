@@ -56,8 +56,8 @@
                             <div class="card-body">
                                 <div class="mt-3 pb-3 mb-3 d-flex flex-column">
                                     <div class="w-100 p-0 text-center">
-                                        <img src="{{ asset('storage/images/user/' . $user->image) }}"
-                                            class="rounded w-50 shadow-lg" alt="User Image " />
+                                        <img src="{{ $user->avatar() }}"
+                                            class="rounded w-25 shadow-lg" alt="User Image " />
                                     </div>
                                     <div class="mx-2 my-2 text-center">
                                         <h5 class="m-0 text-center">{{ $user->name }}</h5>

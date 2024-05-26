@@ -19,19 +19,23 @@ class LoginController extends Controller
             'nip' => ['required', 'numeric'],
             'password' => ['required'],
         ]);
+        $user = User::where('nip', $request->nip)->first();
+        if (!Auth::attempt($credentials)) {
+            // if ($user = User::where('nip', $request->nip)->first()) {
+            //     if ($user->status->status != 'Aktif') {
+            //         return back()->with('loginError', 'Your account is inactive');
+            //     }
+            // }
+            return back()->with('loginError', 'Login failed!');
+        }elseif($user->status->status != 'Aktif'){
+                    return back()->with('loginError', 'Your account is inactive');
+        }
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended($this->redirectTo());
             // return redirect()->intended('dashboard');
         }
-        if (!Auth::attempt($credentials)) {
-            if ($user = User::where('nip', $request->nip)->first()) {
-                if ($user->status->status != 'Aktif') {
-                    return back()->with('loginError', 'Your account is inactive');
-                }
-            }
-            return back()->with('loginError', 'Login failed!');
-        }
+
     }
     protected function redirectTo()
     {

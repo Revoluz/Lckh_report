@@ -71,6 +71,7 @@
                                         <div class="w-100 form-group">
                                             <label for="bulan">Bulan:</label>
                                             <select class="custom-select select2" id="bulan" name="bulan">
+                                                <option @readonly(true) selected value="">Bulan</option>
                                                 <option value="1">Januari</option>
                                                 <option value="2">Februari</option>
                                                 <option value="3">Maret</option>
@@ -124,7 +125,8 @@
                             <div class="card-body">
                                 <h3 class="card-title">List Kirim LCKH</h3>
                                 <br />
-                                <table id="example1" class="table table-bordered table-striped">
+                                {{ $dataTable->table() }}
+                                {{-- <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>NO</th>
@@ -195,7 +197,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -218,13 +220,16 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
+    {{-- <script>
         $(function() {
             $("#example1")
                 .DataTable({
@@ -248,7 +253,7 @@
                 responsive: true,
             });
         });
-    </script>
+    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
@@ -313,4 +318,6 @@
             });
         });
     </script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
 @endsection

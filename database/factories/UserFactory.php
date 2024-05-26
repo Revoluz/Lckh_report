@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -19,9 +20,15 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'nip'=> random_int(100000, 999999),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'work_place_id'=>random_int(1,3),
+            'image' => Str::random(10),
+            'status_id' => random_int(1,2),
+            'role_id'=> random_int(1,4),
+            'created_at'=>now(),
+            'updated_at'=>now(),
+            'password' => Hash::make('12345678'),
             'remember_token' => Str::random(10),
         ];
     }

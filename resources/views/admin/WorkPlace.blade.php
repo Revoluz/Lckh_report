@@ -66,8 +66,8 @@
                                     data-target="#modal-tambah-tempat-tugas">
                                     Tambah Tempat Tugas <i class="ml-1 fas fa-plus"></i>
                                 </button>
-
-                                <table id="example1" class="table table-bordered table-striped">
+                                {{ $dataTable->table() }}
+                                {{-- <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -115,7 +115,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -172,7 +172,7 @@
     </div>
     <!-- /.modal -->
     <!-- modal edit tempat tugas -->
-    @foreach ($workPlaces as $workPlace)
+    {{-- @foreach ($workPlaces as $workPlace)
         <div class="modal fade" id="modal-edit-tempat-tugas{{ $workPlace->id }}">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -215,7 +215,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-    @endforeach
+    @endforeach --}}
 
     <!-- /.modal -->
 @endsection
@@ -227,7 +227,7 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
@@ -257,7 +257,7 @@
                 responsive: true,
             });
         });
-    </script>
+    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
@@ -272,4 +272,9 @@
 
         });
     </script>
+        </script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endsection

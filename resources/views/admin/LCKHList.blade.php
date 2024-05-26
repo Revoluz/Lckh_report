@@ -73,7 +73,8 @@
                                         <i class="ml-1 fas fa-plus"></i>
                                     </button>
                                 </a>
-                                <table id="example1" class="table table-bordered table-striped">
+                                {{ $dataTable->table() }}
+                                {{-- <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -142,7 +143,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -164,13 +165,17 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+
+    {{-- <script>
         $(function() {
             $("#example1")
                 .DataTable({
@@ -194,5 +199,24 @@
                 responsive: true,
             });
         });
-    </script>
+    </script> --}}
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    {{-- <script>
+        $(document).ready(function () {
+            $('#table').DataTable({
+                ordering:true,
+                serverSide:true,
+                processing:true,
+                ajax:{
+                    url:"{{ route('lckh.index') }}",
+                },
+                columns:[
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', width: '10px', orderable: false, searchable: false},
+                {data: 'user.nip', name: 'user.nip'},
+                {data: 'user.name', name: 'user.name'},
+                ],
+                columnDefs:[],
+            });
+        }) ;
+    </script> --}}
 @endsection

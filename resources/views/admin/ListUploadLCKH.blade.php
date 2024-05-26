@@ -85,24 +85,19 @@
                                                 <option value="12">Desember</option>
                                             </select>
                                         </div>
-                                        @if (!auth()->user()->role->role == 'Pengawas')
-                                            <div class="flex-grow-2 form-group">
+                                        @if (auth()->user()->role->role != 'Pengawas')
+                                            <div class="w-50 form-group">
                                                 <label for="tempat_tugas">Tempat Tugas:</label>
-                                                <select class="custom-select select2bs4" id="tempat_tugas"
+                                                <select class="custom-select select2WorkPlace" id="tempat_tugas"
                                                     name="tempat_tugas">
-                                                    <option @readonly(true) selected value="0">Tempat Tugas</option>
-                                                    @foreach ($work_places as $work_place)
-                                                        <option value="{{ $work_place->id }}">{{ $work_place->work_place }}
-                                                        </option>
-                                                    @endforeach
+
                                                 </select>
                                             </div>
                                         @endif
 
-                                        <div class="flex-grow-1 form-group">
+                                        <div class="w-50 form-group">
                                             <label for="nama">Nama Pegawai:</label>
-                                            <select class="custom-select select2bs4" id="nama" name="nama">
-
+                                            <select class="custom-select select2User" id="nama" name="nama">
                                             </select>
                                         </div>
 
@@ -123,7 +118,8 @@
                             <div class="card-body">
                                 <h3 class="card-title">List Upload LCKH</h3>
                                 <br />
-                                <table id="example1" class="table table-bordered table-striped">
+                                {{ $dataTable->table() }}
+                                {{-- <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>NO</th>
@@ -177,7 +173,7 @@
 
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -200,13 +196,13 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
+    {{-- <script>
         $(function() {
             $("#example1")
                 .DataTable({
@@ -214,7 +210,7 @@
                     lengthChange: true,
                     autoWidth: false,
                     paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
+                    pageLength: 5, // menentukan jumlah data per halaman
                     pagingType: 'simple_numbers', // menambahkan panah navigasi
                     buttons: ["copy", "csv", "excel", "pdf", "print"],
 
@@ -230,7 +226,7 @@
                 responsive: true,
             });
         });
-    </script>
+    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 
@@ -242,7 +238,7 @@
             });
 
             //Initialize Select2 Elements
-            $(".select2bs4").select2({
+            $(".select2User").select2({
                 theme: "bootstrap4",
                 placeholder: 'Masukan Nama',
                 ajax: {
@@ -261,6 +257,28 @@
                     }
                 }
             });
+                        $(".select2WorkPlace").select2({
+                theme: "bootstrap4",
+                placeholder:'Tempat Tugas',
+                ajax: {
+                    url: "{{route('select2.dataWorkPlace')}}",
+                    processResults : function({data}){
+                        return{
+                            results : $.map(data,function (item) {
+                                return{
+                                    id:item.id,
+                                    text:item.work_place
+                                }
+                            })
+                        }
+                    }
+                }
+            });
         });
     </script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
 @endsection
