@@ -66,8 +66,8 @@ class RecapDataUserDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
-            Column::make('work_place.work_place'),
-            Column::make('count'),
+            Column::make('work_place.work_place')->title('Tempat Tugas'),
+            Column::make('count')->title('Jumlah User'),
         ];
     }
 

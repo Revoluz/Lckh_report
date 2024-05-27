@@ -39,6 +39,7 @@ class RecapDataLCKHDataTable extends DataTable
         return  $model->whereNotNull('monthly_report')
             ->select(DB::raw('date(monthly_report) as date'), DB::raw('count(*) as count'))
             ->groupBy('date')
+            ->orderBy('date','desc')
             ->newQuery();
     }
 
@@ -69,8 +70,8 @@ class RecapDataLCKHDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
-            Column::make('date'),
-            Column::make('count'),
+            Column::make('date')->title('Upload Bulan'),
+            Column::make('count')->title('Jumlah Upload LCKH'),
             // Column::make('monthly_report'),
             // Column::make('id'),
         ];

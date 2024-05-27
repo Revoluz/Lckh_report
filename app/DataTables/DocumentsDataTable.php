@@ -29,11 +29,10 @@ class DocumentsDataTable extends DataTable
             })->addColumn('nip', function ($data) {
                 return $data->user->nip;
             })->editColumn('document_date', function ($data) {
-                $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat(' MMMM YYYY'));
+                $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
                 return $tanggal_upload;
             })->editColumn('created_at', function ($data) {
-
-                $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat('DD MMMM YYYY'));
+                $tanggal_upload = ucfirst(Carbon::parse($data->created_at)->locale('id')->isoFormat('DD MMMM YYYY'));
                 return $tanggal_upload;
             })->editColumn('id', function ($data) {
             return view('partials.datatable.CRUD-Document', ['data' => $data]);
@@ -49,9 +48,9 @@ class DocumentsDataTable extends DataTable
         $userRole = auth()->user()->role->role;
         if ($userRole == 'User' || $userRole == 'Kepala kantor' || $userRole == 'Pengawas') {
             // $documents =  auth()->user()->documents;
-            return $model->where('user_id', auth()->user()->id)->newQuery();
+            return $model->where('user_id', auth()->user()->id)->orderByDesc('document_date')->newQuery();
         }
-        return $model->newQuery();
+        return $model->orderByDesc('document_date')->newQuery();
     }
 
     /**

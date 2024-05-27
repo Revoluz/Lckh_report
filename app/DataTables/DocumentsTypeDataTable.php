@@ -34,7 +34,7 @@ class DocumentsTypeDataTable extends DataTable
      */
     public function query(Document_types $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->orderByDesc('created_at')->newQuery();
     }
 
     /**

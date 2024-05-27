@@ -34,7 +34,7 @@ class UsersDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->orderByDesc('created_at')->newQuery();
+        return $model->newQuery();
     }
 
     /**

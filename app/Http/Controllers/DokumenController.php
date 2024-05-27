@@ -73,6 +73,7 @@ class DokumenController extends Controller
         $validateData = $request->validate($rules, $messages);
 
         // Simpan data dokumen
+        // dd($request->dokumen_bulan);
         $date = Carbon::parse($request->dokumen_bulan)->format('Y-m-d');
         $file = $request->file('upload_dokumen');
         $filename = time() . '_' . $file->getClientOriginalName();
