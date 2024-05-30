@@ -35,7 +35,7 @@ class LckhController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas'|| auth()->user()->role->role == 'Keuangan') {
             $users=auth()->user();
         }elseif (auth()->user()->role->role =='Administrator' || auth()->user()->role->role == 'Kepala kantor') {
             $users = User::all();
@@ -53,7 +53,7 @@ class LckhController extends Controller
     {
         // Lakukan validasi data input
 
-        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas'|| auth()->user()->role->role == 'Keuangan') {
             $rules = [
                 'laporan_bulan' => 'required|date_format:Y-m',
                 'upload_document' => 'required|url',
@@ -75,7 +75,7 @@ class LckhController extends Controller
         ];
 
         $validateData = $request->validate($rules, $messages);
-        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role =='Pengawas' || auth()->user()->role->role == 'Keuangan') {
             $validateData['nama'] = Auth::id();
         }
         // Jika validasi berhasil, simpan data ke database
@@ -149,7 +149,7 @@ class LckhController extends Controller
      */
     public function update(Request $request, Lckh_reports $lckh)
     {
-        if (auth()->user()->role->role == 'User' || auth()->user()->role->role == 'Pengawas') {
+        if (auth()->user()->role->role == 'User' || auth()->user()->role->role =='Pengawas' || auth()->user()->role->role == 'Keuangan') {
             $rules = [
                 'laporan_bulan' => 'required|date_format:Y-m',
                 'upload_document' => 'required|url',

@@ -50,6 +50,11 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+        Gate::define('auth.keuangan', function (User $user) {
+            if ($user->role->role == 'Keuangan') {
+                return true;
+            }
+        });
         Gate::define('lckh.show',function(User $user, $userLckh){
             // dd($user->id);
             if($user->id != $userLckh->user_id){
