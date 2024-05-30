@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/document', DokumenController::class);
     Route::get('/profile', [UserAdminController::class, 'profile'])->name('user.profile');
-    Route::put('/change-password/{user}', [UserAdminController::class, 'changePassword'])->name('change.Password');
+    Route::put('/edit-profile/{user}', [UserAdminController::class, 'updateProfileUser'])->name('update.profile');
     Route::get('/document/download/{document}', [DokumenController::class, 'downloadDocument'])->name('document.download');
     Route::get('/document/filter/document', [DokumenController::class, 'filterDocument'])->name('document.filter');
     Route::middleware(['can:auth.3'])->group(function () {

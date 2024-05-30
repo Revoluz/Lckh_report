@@ -45,7 +45,7 @@ class UserAdminController extends Controller
         $rules = [
             'nip' => 'required|numeric|unique:users,nip',
             'nama' => 'required',
-            'email' => 'nullable|email',
+            'email' => 'nullable|email|unique:users',
             'tempat_tugas' => 'required',
             'role' => 'required',
             'status' => 'required',
@@ -137,7 +137,6 @@ class UserAdminController extends Controller
     {
         $rules = [
             'nama' => 'required',
-            'email' => 'nullable|email',
             'tempat_tugas' => 'required',
             'role' => 'required',
             'status' => 'required',
@@ -147,11 +146,20 @@ class UserAdminController extends Controller
         if ($request->nip != $user->nip) {
             $rules['nip'] =  'required|numeric|unique:users,nip';
         }
+        if ($request->email != $user->email) {
+            $rules['email'] =  'required|unique:users';
+        }
+
 
         $validateData = $request->validate($rules);
+        // dd($validateData);
         if ($request->nip != $user->nip) {
             # code...
             $user->nip = $validateData['nip'];
+        }
+        if ($request->email != $user->email) {
+            # code...
+            $user->email = $validateData['email'];
         }
         if (!$request->password == null) {
             # code...
@@ -169,12 +177,10 @@ class UserAdminController extends Controller
             $user->image = $imageName;
         }
         $user->name = $validateData['nama'];
-        $user->email = $validateData['email'];
         $user->work_place_id = $validateData['tempat_tugas'];
         $user->status_id = $validateData['status'];
         $user->role_id = $validateData['role'];
-        $user->save();
-        if ($user->save()) {
+        if ($user->update()) {
             return redirect()->route('userAdmin.index')->with('success', 'User berhasil diupdate!');
         } else {
             return redirect()->back()->with('error', 'User gagal diupdate!');
@@ -194,18 +200,41 @@ class UserAdminController extends Controller
         return redirect()->route('userAdmin.index')->with('success', 'Berhasil Menghapus data User');
     }
 
-    public function changePassword(Request $request, User $user)
+    public function updateProfileUser(Request $request, User $user)
     {
-        $rule = [
-            'password' => 'required|min:8'
+
+        $rules = [
+            'password' => 'nullable|min:8',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'email' => 'nullable|email',
         ];
-        $validateData = $request->validate($rule);
-        $user->password = Hash::make($validateData['password']);
-        $user->save();
-        if ($user->save()) {
-            return redirect()->route('userAdmin.index')->with('success', 'Password berhasil diubah!');
+        if ($request->email != $user->email) {
+            $rules['email'] =  'required|unique:users';
+        }
+
+        $validateData = $request->validate($rules);
+        if ($request->email != $user->email) {
+            # code...
+            $user->email = $validateData['email'];
+        }
+        // dd($validateData);
+        // $user->password = Hash::make($validateData['password']);
+        // $user->save();
+        if ($request->file('image')) {
+            // Simpan image
+            if ($user->image) {
+                Storage::delete('public/images/user/' . $user->image);
+            }
+            $image = $request->file('image');
+            // dd($request->file('image'));
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs('public/images/user', $imageName);
+            $user->image = $imageName;
+        }
+        if ($user->update()) {
+            return redirect()->back()->with('success', 'Profile berhasil diubah!');
         } else {
-            return redirect()->back()->with('error', 'Password gagal diubah!');
+            return redirect()->back()->with('error', 'Profile gagal diubah!');
         }
     }
     public function profile()
