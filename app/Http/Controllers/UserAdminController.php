@@ -30,7 +30,7 @@ class UserAdminController extends Controller
     public function create()
     {
         return view('admin.UserCreate', [
-            'work_places' => Work_place::all(),
+            // 'work_places' => Work_place::all(),
             'roles' => Role::all(),
             'statuses' => Status::all()
         ]);
@@ -124,7 +124,7 @@ class UserAdminController extends Controller
         // dd($user)
         return view('admin.UserEdit', [
             'user' => $user[0],
-            'work_places' => Work_place::all(),
+            // 'work_places' => Work_place::all(),
             'roles' => Role::all(),
             'statuses' => Status::all()
         ]);

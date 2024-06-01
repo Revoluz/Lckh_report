@@ -23,7 +23,7 @@ class WorksPlaceDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
         ->addIndexColumn()
-        ->editColumn('id', function ($data) {
+        ->addColumn('action', function ($data) {
             return view('partials.datatable.CRUD-WorkPlace', ['workPlace' => $data]);
         });
     }
@@ -63,8 +63,9 @@ class WorksPlaceDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
+            Column::make('id'),
             Column::make('work_place'),
-            Column::make('id')->title('Action')->searchable(false)->orderable(false),
+            Column::make('action')->title('Action')->searchable(false)->orderable(false),
         ];
     }
 

@@ -1,6 +1,9 @@
 @extends('layout.main')
 
 @section('head')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
 @endsection
 
 @section('content')
@@ -94,13 +97,13 @@
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="tempat_tugas">Tempat Tugas</label>
-                                        <select class="custom-select @error('tempat_tugas') is-invalid @enderror "
+                                        <select class="custom-select select2WorkPlace @error('tempat_tugas') is-invalid @enderror "
                                             name="tempat_tugas" id="tempat_tugas">
-                                            <option selected disabled @readonly(true)>-- Pilih Tempat Tugas --</option>
+                                            {{-- <option selected disabled @readonly(true)>-- Pilih Tempat Tugas --</option>
                                             @foreach ($work_places as $work_place)
                                                 <option value="{{ $work_place->id }}">{{ $work_place->work_place }}
                                                 </option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                         @error('tempat_tugas')
                                             <div id="validationServer04Feedback" class="invalid-feedback">
@@ -204,7 +207,7 @@
     </div>
 @endsection
 @section('plugins')
-    <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
 
     <script>
@@ -257,5 +260,34 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+    </script>
+
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            //Initialize Select2 Elements
+            $(".select2").select2({
+                theme: "bootstrap4",
+            });
+
+                        $(".select2WorkPlace").select2({
+                theme: "bootstrap4",
+                placeholder:'Tempat Tugas',
+                ajax: {
+                    url: "{{route('select2.dataWorkPlace')}}",
+                    processResults : function({data}){
+                        return{
+                            results : $.map(data,function (item) {
+                                return{
+                                    id:item.id,
+                                    text:item.work_place
+                                }
+                            })
+                        }
+                    }
+                }
+            });
+        });
     </script>
 @endsection

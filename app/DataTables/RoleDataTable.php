@@ -23,7 +23,7 @@ class RoleDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addIndexColumn()
-            ->editColumn('id', function ($data) {
+            ->addColumn('action', function ($data) {
                 return view('partials.datatable.Show-Role', ['role' => $data]);
             });
     }
@@ -63,8 +63,9 @@ class RoleDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
+            Column::make('id'),
             Column::make('role'),
-            Column::make('id')->title('Action')->searchable(false)->orderable(false),
+            Column::make('action')->title('Action')->searchable(false)->orderable(false),
         ];
     }
 
