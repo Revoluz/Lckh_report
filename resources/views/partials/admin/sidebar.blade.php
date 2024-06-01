@@ -113,6 +113,13 @@
                                 <p>Role</p>
                             </a>
                         </li>
+                            <li class="nav-item">
+                            <a href="{{ route('status.user') }}"
+                                class="nav-link {{ Route::is('status.user') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-tag"></i>
+                                <p>Status User</p>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </nav>

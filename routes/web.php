@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\changeStatusUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LckhController;
 use App\Http\Controllers\UserController;
@@ -77,6 +78,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/role', [RoleAdminController::class, 'index'])->name('role.index');
         Route::get('/role/{role}', [RoleAdminController::class, 'show'])->name('role.show');
         Route::resource('/document-type', DocumentTypeAdminController::class)->except('show','create');
+        Route::get('/statuses',[changeStatusUser::class,'index'])->name('status.user');
+        Route::post('/statuses/update', [changeStatusUser::class, 'update'])->name('status.update');
     });
 
     // Route::middleware(['User'])->group(function () {
