@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/{nip}', [UserAdminController::class, 'show'])->name('userAdmin.show');
 
         Route::get('/user/{nip}/edit', [UserAdminController::class, 'edit'])->name('userAdmin.edit');
+        Route::post('/import-user', [UserAdminController::class, 'userImportExcel'])->name('userAdmin.import');
 
         Route::resource('/tempat-tugas', WorkPlaceController::class)
             ->names([

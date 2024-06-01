@@ -7,8 +7,6 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
-
 @endsection
 @section('content')
     <!-- Main Sidebar Container -->
@@ -74,75 +72,12 @@
                                         <i class="ml-1 fas fa-plus"></i>
                                     </button>
                                 </a>
+                                <button type="button" class="btn btn-primary mb-2 ml-auto" data-toggle="modal"
+                                    data-target="#modal-import-user">
+                                    Tambah User Excel File
+                                    <i class="ml-1 fas fa-plus"></i>
+                                </button>
                                 {{ $dataTable->table() }}
-
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Email</th>
-                                            <th>Pasfoto</th>
-                                            <th>User Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($users as $user)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->nip }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->work_place->work_place }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td><img style="width: 80px"
-                                                        src="{{ asset('storage/images/user/' . $user->image) }}"
-                                                        alt=""></td>
-                                                <td>{{ $user->role->role }}</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('userAdmin.show', ['nip' => $user->nip]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                        <a href="{{ route('userAdmin.edit', ['nip' => $user->nip]) }}">
-                                                            <button type="button" class="btn btn-warning">
-                                                                <i class="fas fa-edit text-white"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('userAdmin.destroy', ['user' => $user->id]) }} "method="post">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <p>No data available in table</p>
-                                        @endforelse
-
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Email</th>
-                                            <th>Pasfoto</th>
-                                            <th>User Role</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -154,6 +89,53 @@
             <!-- /.container-fluid -->
         </div>
         <!-- /.content -->
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-import-user">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Masukan File Excel</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('userAdmin.import') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="user">File Excle User</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input  @error('file') is-invalid @enderror"
+                                        required id="file" name="file" />
+                                    <label class="custom-file-label" for="file">Choose
+                                        file</label>
+                                </div>
+                            </div>
+                            @error('file')
+                                <div id="validationServer04Feedback" class="invalid-feedback d-block">
+                                    <p> {{ $message }}</p>
+                                </div>
+                            @enderror
+                            <p class=" mb-0 text-danger">pastikan tidak ada header pada row excel</p>
+                            <a href="{{ asset('example-excel/user-test-excel.ods') }}" download="user-test-excel.ods"
+                                class=" d-block text-md m-0">contoh format file excel</a>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary button-submit">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 @endsection
 @section('plugins')
@@ -195,8 +177,17 @@
             });
         });
     </script> --}}
-<script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
-<script src="/vendor/datatables/buttons.server-side.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-
+    <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <script>
+        $(function() {
+            $(function() {
+                bsCustomFileInput.init();
+            });
+            //Initialize Select2 Elements
+        });
+    </script>
 @endsection

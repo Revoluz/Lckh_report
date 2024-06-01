@@ -22,6 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('roles', function (Blueprint $table) {
+            $table->dropUnique(['role']);
             $table->enum("role", ['Administrator', 'Pengawas', 'User', 'Kepala kantor'])->change();
         });
     }

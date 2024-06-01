@@ -171,51 +171,6 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-    <!-- modal edit tempat tugas -->
-    {{-- @foreach ($workPlaces as $workPlace)
-        <div class="modal fade" id="modal-edit-tempat-tugas{{ $workPlace->id }}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Masukan Tempat Tugas</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{ route('workPlace.update', ['work_place' => $workPlace->id]) }}" method="POST">
-                        <div class="modal-body">
-                            @method('put')
-                            @csrf
-
-                            <div class="form-group">
-                                <label for="tempat_tugas">Edit Tempat Tugas</label>
-                                <input type="text" name="tempat_tugas"
-                                    class="form-control @error('tempat_tugas')
-                                is-invalid
-                            @enderror"value="{{ old('tempat_tugas', $workPlace->work_place) }}"
-                                    id="tempat_tugas" placeholder="Masukan Tempat Tugas" />
-                                @error('tempat_tugas')
-                                    <div id="validationServer04Feedback" class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="submit" class="btn btn-primary button-submit">Submit</button>
-                        </div>
-                    </form>
-
-
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-    @endforeach --}}
 
     <!-- /.modal -->
 @endsection
@@ -272,7 +227,6 @@
 
         });
     </script>
-        </script>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="/vendor/datatables/buttons.server-side.js"></script>

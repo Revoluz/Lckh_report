@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\UsersDataTable;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Status;
 use App\Models\Work_place;
+use App\Imports\UserImport;
 use Illuminate\Http\Request;
+use App\DataTables\UsersDataTable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class UserAdminController extends Controller
@@ -246,5 +248,13 @@ class UserAdminController extends Controller
         return view('admin.Profile', [
             'user' => $user,
         ]);
+    }
+    public function userImportExcel(Request $request){
+        $excel = $request->file('file');
+        // dd($request->file('file'));
+        $excelName = time() . '_' . $excel->getClientOriginalName();
+        $excel->storeAs('public/excels/', $excelName);
+        Excel::import(new UserImport,public_path('storage/excels/'. $excelName));
+        return redirect()->back()->with('success', 'User berhasil ditambahkan!');
     }
 }
