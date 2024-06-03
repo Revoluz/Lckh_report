@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('image')->nullable()->change();
-            $table->string('email')->nullable()->unique()->change();
-
+            $table->dropForeign(['work_place_id']);
+            $table->dropForeign(['status_id']);
+            $table->dropForeign(['role_id']);
+            $table->foreign('work_place_id')->references('id')->on('work_places')->cascadeOnDelete();
+            $table->foreign('status_id')->references('id')->on('statuses')->cascadeOnDelete();
+            $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
         });
     }
 
@@ -24,8 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropUnique(['email']);
-            $table->text('image')->nullable()->change();
+            //
         });
     }
 };
