@@ -101,4 +101,16 @@ class WorkPlaceController extends Controller
         $work_place->delete();
         return redirect()->route('workPlace.index')->with('success', 'Berhasil Menghapus data Dokumen Tempat Tugas');
     }
+    public function work_place_users(Request $request){
+        $validated = $request->validate([
+            'nama'=>'required',
+            'tempat_tugas'=>'required'
+        ]);
+        foreach ($validated['nama'] as $name) {
+        $user = User::where('id',$name)->first();
+        $user->work_place_id = $validated['tempat_tugas'];
+        $user->update();
+        }
+        return redirect()->back()->with('success', 'Tempat kerja User berhasil diupdate!');
+    }
 }

@@ -7,6 +7,19 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
+    <style>
+        .select2.select2-container .select2-selection__choice,
+        .select2-selection__choice__remove {
+            background-color: #007bff;
+            color: #fff !important;
+            font-size: 18px;
+        }
+
+        .select2-selection__choice__remove {
+            font-size: 20px !important;
+
+        }
+    </style>
 @endsection
 @section('content')
     <!-- Main Sidebar Container -->
@@ -66,56 +79,11 @@
                                     data-target="#modal-tambah-tempat-tugas">
                                     Tambah Tempat Tugas <i class="ml-1 fas fa-plus"></i>
                                 </button>
+                                <button type="button" class="btn btn-primary mb-2 ml-auto" data-toggle="modal"
+                                    data-target="#modal-edit-tempat-tugas-user">
+                                    Edit Tempat Tugas User <i class="ml-1 fas fa-edit"></i>
+                                </button>
                                 {{ $dataTable->table() }}
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tempat Tugas</th>
-
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($workPlaces as $workPlace)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $workPlace->work_place }}</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a
-                                                            href="{{ route('workPlace.show', ['work_place' => $workPlace->id]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal"
-                                                            data-target="#modal-edit-tempat-tugas{{ $workPlace->id }}">
-                                                            <i class="fas fa-edit text-white"></i>
-                                                        </button>
-                                                        <form
-                                                            action="{{ route('workPlace.destroy', ['work_place' => $workPlace->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger"
-                                                                onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -170,6 +138,57 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+{{-- modal edit tempat Tugas user --}}
+    <div class="modal fade" id="modal-edit-tempat-tugas-user">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Tempat Tugas User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('workPlace.user-edit') }}" method="POST">
+                    @csrf
+                    <div class="card-body ">
+                        <div class="form-group ">
+                            </select>
+                            <label for="nama">Nama User:</label>
+                            <select class="custom-select select2User @error('nama') is-invalid @enderror"
+                                data-dropdown-css-class="select2-purple" multiple="multiple" id="nama" name="nama[]"
+                                multiple required>
+                            </select>
+                            @error('nama')
+                                <div id="validationServer04Feedback" class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group ">
+                            <label for="tempat_tugas">Tempat Tugas</label>
+                            <select class="custom-select select2WorkPlace @error('tempat_tugas') is-invalid @enderror "
+                                name="tempat_tugas" id="tempat_tugas">
+                            </select>
+                            @error('tempat_tugas')
+                                <div id="validationServer04Feedback" class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-md button-submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
     <!-- /.modal -->
 
     <!-- /.modal -->
@@ -182,37 +201,6 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2").DataTable({
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                autoWidth: false,
-                responsive: true,
-            });
-        });
-    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
@@ -231,4 +219,56 @@
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="/vendor/datatables/buttons.server-side.js"></script>
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    <script>
+        $(document).ready(function() {
+            //Initialize Select2 Elements
+            $(".select2").select2({
+                theme: "bootstrap4",
+            });
+
+            $(".select2WorkPlace").select2({
+                theme: "bootstrap4",
+                placeholder: 'Tempat Tugas',
+                ajax: {
+                    url: "{{ route('select2.dataWorkPlace') }}",
+                    processResults: function({
+                        data
+                    }) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.work_place
+                                }
+                            })
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+        <script>
+        $(document).ready(function() {
+            //Initialize Select2 Elements
+            $(".select2User").select2({
+                theme: "bootstrap4",
+                placeholder: 'Masukan Nama',
+                ajax: {
+                    url: "{{ route('select2.dataUser') }}",
+                    processResults: function({
+                        data
+                    }) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name + ' - ' + item.nip,
+                                }
+                            })
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

@@ -60,7 +60,6 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'nip' => '12345678',
-            'email' => '',
             'work_place_id' => '1',
             'image' => '34233',
             'status_id' => '1',
@@ -70,7 +69,6 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'user',
             'nip' => '1234567',
-            'email' => '',
             'work_place_id' => '1',
             'image' => '34233',
             'status_id' => '1',
@@ -80,7 +78,6 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'pengawas',
             'nip' => '123456',
-            'email' => '',
             'work_place_id' => '1',
             'image' => '34233',
             'status_id' => '1',
@@ -90,7 +87,6 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'kepala kantor',
             'nip' => '12345',
-            'email' => '',
             'work_place_id' => '1',
             'image' => '34233',
             'status_id' => '1',
