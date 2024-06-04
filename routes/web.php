@@ -78,6 +78,7 @@ Route::middleware(['auth'])->group(function () {
             ])->parameter('tempat-tugas', 'work_place');
         Route::post('edit-workPlace-user', [WorkPlaceController::class, 'work_place_users'])->name('workPlace.user-edit');
         Route::get('/role', [RoleAdminController::class, 'index'])->name('role.index');
+        Route::post('/role', [RoleAdminController::class, 'editRoleUser'])->name('role.editUser');
         Route::get('/role/{role}', [RoleAdminController::class, 'show'])->name('role.show');
         Route::resource('/document-type', DocumentTypeAdminController::class)->except('show','create');
         Route::get('/statuses',[changeStatusUser::class,'index'])->name('status.user');

@@ -111,6 +111,6 @@ class WorkPlaceController extends Controller
         $user->work_place_id = $validated['tempat_tugas'];
         $user->update();
         }
-        return redirect()->back()->with('success', 'Tempat kerja User berhasil diupdate!');
+        return redirect()->back()->with('success', 'Tempat kerja User berhasil di update!');
     }
 }
