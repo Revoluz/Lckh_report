@@ -45,7 +45,7 @@
             <script>
                 $(document).ready(function() {
                     // Notifikasi toastr berhasil
-                    toastr.error('{{ session('error') }}', 'gaga');
+                    toastr.error('{{ session('error') }}', 'gagal');
                 });
             </script>
         @endif

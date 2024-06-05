@@ -249,12 +249,26 @@ class UserAdminController extends Controller
             'user' => $user,
         ]);
     }
-    public function userImportExcel(Request $request){
+    public function userImportExcel(Request $request)
+    {
         $excel = $request->file('file');
         // dd($request->file('file'));
         $excelName = time() . '_' . $excel->getClientOriginalName();
         $excel->storeAs('public/excels/', $excelName);
-        Excel::import(new UserImport,public_path('storage/excels/'. $excelName));
+        $import = new UserImport;
+        $import->import(public_path('storage/excels/' . $excelName));
+        $duplicates = [];
+        $uniqueIdentifier = [];
+        foreach ($import->failures() as $failure) {
+            array_push($uniqueIdentifier, $failure->row());
+            $duplicates = array_unique($uniqueIdentifier);
+        }
+        $duplicateCount = count($duplicates);
+
+        // dd($duplicateCount);
+        if ($duplicateCount > 0) {
+            return back()->withErrors('Terdapat ' . $duplicateCount . ' baris data yang terduplikat.');
+        }
         return redirect()->back()->with('success', 'User berhasil ditambahkan!');
     }
 }

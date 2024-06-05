@@ -77,6 +77,13 @@
                                     Tambah User Excel File
                                     <i class="ml-1 fas fa-plus"></i>
                                 </button>
+                                @if ($errors->all())
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach ($errors->all() as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 {{ $dataTable->table() }}
                             </div>
                             <!-- /.card-body -->
@@ -120,7 +127,7 @@
                                 </div>
                             @enderror
                             <p class=" mb-0 text-danger">pastikan tidak ada header pada row excel</p>
-                            <a href="{{ asset('example-excel/user-test-excel.ods') }}" download="user-test-excel.ods"
+                            <a href="{{ asset('example-excel/user-example-excel.ods') }}" download="user-test-excel.ods"
                                 class=" d-block text-md m-0">contoh format file excel</a>
                         </div>
                     </div>

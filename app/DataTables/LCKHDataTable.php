@@ -31,6 +31,10 @@ class LCKHDataTable extends DataTable
                 $nama_bulan = ucfirst(Carbon::parse($data->monthly_report)->locale('id')->isoFormat('MMMM YYYY'));
                 return $nama_bulan;
             })
+            ->editColumn('upload_document', function ($data) {
+                // return $data->upload_document;
+                return view('partials.datatable.link-lckh', ['data' => $data]);
+            })
             ->editColumn('created_at', function ($data) {
 
                 $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat('DD MMMM YYYY'));

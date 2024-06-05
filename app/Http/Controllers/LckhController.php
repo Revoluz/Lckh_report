@@ -62,7 +62,7 @@ class LckhController extends Controller
             $rules = [
                 'nama' => 'required',
                 'laporan_bulan' => 'required|date_format:Y-m',
-                'upload_document' => 'required|url',
+                'upload_document' => 'required|url|regex:/^https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view/',
             ];
         }
 
