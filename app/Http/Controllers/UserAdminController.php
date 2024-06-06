@@ -257,6 +257,7 @@ class UserAdminController extends Controller
         $excel->storeAs('public/excels/', $excelName);
         $import = new UserImport;
         $import->import(public_path('storage/excels/' . $excelName));
+        if ($import->failures()) {
         $duplicates = [];
         $uniqueIdentifier = [];
         foreach ($import->failures() as $failure) {
@@ -266,8 +267,9 @@ class UserAdminController extends Controller
         $duplicateCount = count($duplicates);
 
         // dd($duplicateCount);
-        if ($duplicateCount > 0) {
-            return back()->withErrors('Terdapat ' . $duplicateCount . ' baris data yang terduplikat.');
+        // if ($duplicateCount > 0) {
+            return back()->withErrors('Terdapat ' . $duplicateCount . ' data yang gagal di import.');
+        // }
         }
         return redirect()->back()->with('success', 'User berhasil ditambahkan!');
     }

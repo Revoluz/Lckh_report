@@ -40,8 +40,8 @@ class UserImport implements ToModel,WithHeadingRow,WithValidation,SkipsOnFailure
             'nama'=>'required',
             'nip'=> 'required|numeric|unique:users,nip',
             'email' => 'nullable|email|unique:users',
-            'id_tempat_kerja' => 'required',
-            'id_role'=> 'required',
+            'id_tempat_kerja' => 'required|numeric',
+            'id_role'=> 'required|numeric',
             'password' => 'required|min:8',
 
         ];
