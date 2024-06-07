@@ -74,76 +74,6 @@
                                     </button>
                                 </a>
                                 {{ $dataTable->table() }}
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Laporan Bulan</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Upload Dokumen</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($lckh as $data)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->user->nip }}</td>
-                                                <td>
-                                                    {{ $data->user->name }}
-                                                </td>
-                                                <td>{{ $data->user->work_place->work_place }}</td>
-
-                                                <td>{{ $data->nama_bulan }}</td>
-                                                <td>{{ $data->upload_date }}</td>
-                                                <td><a style="display: inline-block;width:250px"
-                                                        href="{{ $data->upload_document }} ">{{ $data->upload_document }}
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('lckh.show', ['lckh' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                        <a href="{{ route('lckh.edit', ['lckh' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-warning">
-                                                                <i class="fas fa-edit text-white"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('lckh.destroy', ['lckh' => $data->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <p>No users</p>
-                                        @endforelse
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Laporan Bulan</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Upload Dokumen</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -165,58 +95,10 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="/vendor/datatables/buttons.server-side.js"></script>
 
-    {{-- <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    // buttons: ["copy", "csv", "excel", "pdf", "print", "colVis"],
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2").DataTable({
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                autoWidth: false,
-                responsive: true,
-            });
-        });
-    </script> --}}
+
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-    {{-- <script>
-        $(document).ready(function () {
-            $('#table').DataTable({
-                ordering:true,
-                serverSide:true,
-                processing:true,
-                ajax:{
-                    url:"{{ route('lckh.index') }}",
-                },
-                columns:[
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', width: '10px', orderable: false, searchable: false},
-                {data: 'user.nip', name: 'user.nip'},
-                {data: 'user.name', name: 'user.name'},
-                ],
-                columnDefs:[],
-            });
-        }) ;
-    </script> --}}
 @endsection

@@ -119,61 +119,6 @@
                                 <h3 class="card-title">List Upload LCKH</h3>
                                 <br />
                                 {{ $dataTable->table() }}
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>NO</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Laporan Bulan</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Upload Dokumen</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($lckh_reports as $data)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->user->nip }}</td>
-                                                <td>{{ $data->user->name }}</td>
-                                                <td>{{ $data->user->work_place->work_place }}</td>
-                                                <td>{{ $data->nama_bulan }}</td>
-                                                <td>{{ $data->upload_date }}</td>
-                                                <td>
-                                                    <a style="width: 280px;display:inline-block"
-                                                        href="{{ $data->upload_document }}">
-                                                        {{ $data->upload_document }}
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('listlckh.show', ['lckh' => $data->id]) }}">
-                                                        <button type="button" class="btn btn-info">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <p>No Data</p>
-                                        @endforelse
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>NIP</th>
-                                            <th>Nama</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Laporan Bulan</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Upload Dokumen</th>
-                                            <th>Action</th>
-
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -196,37 +141,6 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
-    {{-- <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 5, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2").DataTable({
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                autoWidth: false,
-                responsive: true,
-            });
-        });
-    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
 

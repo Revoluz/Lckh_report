@@ -59,34 +59,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Upload Bulan</th>
-                                            <th>Jumlah Upload LCKH</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $item)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->date }}</td>
-                                                <td>{{ $item->count }}</td>
-                                            </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Upload Bulan</th>
-                                            <th>Jumlah Upload LCKH</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                                 {{ $lckhDatatable->table(['id'=>'lckhDatatable']) }}
-                                {{-- {!! $dataTableCash->table(['id'=>'dataTableCash']) !!} --}}
 
                             </div>
                             <!-- /.card-body -->
@@ -105,31 +78,6 @@
                             <div class="card-body">
                                 {{ $userDataTable->table(['id'=>'userDataTable']) }}
 
-                                {{-- <table id="example2" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Jumlah User</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($users as $user)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->work_place }}</td>
-                                                <td>{{ $user->count }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Jumlah User</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -153,43 +101,6 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-
-                })
-                .buttons()
-                .container()
-                .appendTo("#example2_wrapper .col-md-6:eq(0)");
-        });
-    </script> --}}
     <!-- Select2 -->
                 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>

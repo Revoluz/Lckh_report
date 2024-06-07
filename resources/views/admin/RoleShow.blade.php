@@ -83,37 +83,6 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2").DataTable({
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                autoWidth: false,
-                responsive: true,
-            });
-        });
-    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>

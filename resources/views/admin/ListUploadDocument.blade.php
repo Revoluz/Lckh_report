@@ -126,78 +126,6 @@
                                 <h3 class="card-title">List Kirim LCKH</h3>
                                 <br />
                                 {{ $dataTable->table() }}
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>NO</th>
-                                            <th>Nama User</th>
-                                            <th>NIP</th>
-                                            <th>Nama Dokumen</th>
-                                            <th>Jenis Dokumen</th>
-                                            <th>Dokumen Bulan</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($documents as $data)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->user->name }}</td>
-                                                <td>{{ $data->user->nip }}</td>
-                                                <td>{{ $data->name }}</td>
-                                                <td>{{ $data->document_type->name }}</td>
-                                                <td>{{ $data->tanggal_upload }}</td>
-                                                <td class="date">{{ $data->created_at->toDateString() }}</td>
-
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('document.show', ['document' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                        <a href="{{ route('document.edit', ['document' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-warning">
-                                                                <i class="fas fa-edit text-white"></i>
-                                                            </button>
-                                                        </a>
-                                                        <form
-                                                            action="{{ route('document.destroy', ['document' => $data->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </form>
-                                                        <a
-                                                            href="{{ route('document.download', ['document' => $data->id]) }}">
-                                                            <button type="button" class="btn btn-success">
-                                                                <i class="fas fa-download text-white"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <p>No Data</p>
-                                        @endforelse
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama User</th>
-                                            <th>NIP</th>
-                                            <th>Nama Dokumen</th>
-                                            <th>Jenis Dokumen</th>
-                                            <th>Dokumen Bulan</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -223,37 +151,6 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.0.3/css/buttons.dataTables.min.css">
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="/vendor/datatables/buttons.server-side.js"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
-    {{-- <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2").DataTable({
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                autoWidth: false,
-                responsive: true,
-            });
-        });
-    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>

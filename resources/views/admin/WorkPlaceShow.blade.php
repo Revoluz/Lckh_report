@@ -64,42 +64,6 @@
                             <div class="card-body">
                                 {{ $dataTable->table() }}
 
-                                {{-- <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Nama User</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($users as $user)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $user->work_place->work_place }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('userAdmin.show', ['nip' => $user->nip]) }}">
-                                                            <button type="button" class="btn btn-info">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tempat Tugas</th>
-                                            <th>Nama User</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table> --}}
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -122,37 +86,6 @@
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    {{-- <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <script>
-        $(function() {
-            $("#example1")
-                .DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    paging: true,
-                    pageLength: 10, // menentukan jumlah data per halaman
-                    pagingType: 'simple_numbers', // menambahkan panah navigasi
-                    buttons: ["copy", "csv", "excel", "pdf", "print"],
-
-                })
-                .buttons()
-                .container()
-                .appendTo("#example1_wrapper .col-md-6:eq(0)");
-            $("#example2").DataTable({
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                autoWidth: false,
-                responsive: true,
-            });
-        });
-    </script> --}}
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
