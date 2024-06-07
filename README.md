@@ -6,8 +6,13 @@
 
 ## Requirements
 
--   PHP >= 8.1.0
+-   PHP 8.2
 -   Composer
+-   laravel 10
+-   Laravel Datatable Yajra
+-   Laravel Excel
+-   php8.2-zip
+-   php8.2-gd
 
 ## Installation
 
@@ -18,6 +23,14 @@
 -   Set your database credentials in your `.env` file
 -   Run migration `php artisan migrate`
 -   Run seeders `php artisan db:seed`
+-   Run seeders `php artisan db:seed --class=RoleKeuanganSeeder`
+-   Install `composer require yajra/laravel-datatables:^10.0`
+-   Run `php artisan vendor:publish --tag=datatables`
+-   Install `sudo apt-get install php8.2-zip php8.2-gd`
+-   Install `composer require maatwebsite/excel:^3.1`
+-   Run `composer update`
+-   Run `php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config`
+
 
 ## Note
 
@@ -36,7 +49,7 @@ php -i | grep php.ini
 Next.
 
 ```
-sudo nano /etc/php/7.4/cli/php.ini
+sudo nano /etc/php/8.2/cli/php.ini
 ```
 
 The values of post_max_size, upload_max_filesize and memory_limit by default have the value of 8M, 2M, and 128M respectively.
