@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/document/download/{document}', [DokumenController::class, 'downloadDocument'])->name('document.download');
     Route::get('/document/filter/document', [DokumenController::class, 'filterDocument'])->name('document.filter');
     Route::middleware(['can:auth.3'])->group(function () {
+
         Route::get('/rekap-data', [RecapDataController::class, 'index'])->name('recapData.index');
         Route::get('/rekap-data/user', [RecapDataController::class, 'getRecapUser'])->name('recapData.user');
         Route::get('/rekap-data/lckh', [RecapDataController::class, 'getRecapLCKH'])->name('recapData.lckh');
@@ -61,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
     });
     // admin
     Route::middleware(['can:auth.admin'])->group(function () {
+        Route::get('/document/create', [DokumenController::class, 'create'])->name('document.create');
         Route::resource('/user', UserAdminController::class)->names(['index' => 'userAdmin.index', 'create' => 'userAdmin.create', 'store' => 'userAdmin.store', 'update' => 'userAdmin.update', 'destroy' => 'userAdmin.destroy']);
         Route::get('/user/{nip}', [UserAdminController::class, 'show'])->name('userAdmin.show');
 

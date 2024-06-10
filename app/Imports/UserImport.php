@@ -29,7 +29,7 @@ class UserImport implements ToModel,WithHeadingRow,WithValidation,SkipsOnFailure
             'work_place_id' => $row['id_tempat_kerja'],
             'status_id' => 1,
             'role_id' => $row['id_role'],
-            'password' => Hash::make($row[6]),
+            'password' => Hash::make($row['password']),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

@@ -111,11 +111,13 @@
                                                 Reset
                                             </button>
                                         </a>
+                                        @if (Gate::check('auth.admin'))
                                         <a href="{{ route('document.create') }}" class="ml-auto">
                                             <button type="button" class="btn btn-success ">
                                                 Tambah Dokumen <i class="ml-1 fas fa-plus"></i>
                                             </button>
                                         </a>
+                                        @endif
                                     </div>
                                 </form>
                                 @endif

@@ -267,9 +267,9 @@ class UserAdminController extends Controller
         $duplicateCount = count($duplicates);
 
         // dd($duplicateCount);
-        // if ($duplicateCount > 0) {
+        if ($duplicateCount > 0) {
             return back()->withErrors('Terdapat ' . $duplicateCount . ' data yang gagal di import.');
-        // }
+        }
         }
         return redirect()->back()->with('success', 'User berhasil ditambahkan!');
     }
