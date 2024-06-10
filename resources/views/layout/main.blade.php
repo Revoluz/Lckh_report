@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>e-Dok Kepegawaian</title>
+    <title>E-DOK Kepegawaian Kemenag Bantul</title>
+        <link rel="icon" type="image/png" href="{{ asset('assets/img/kementrian2.png') }}" >
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

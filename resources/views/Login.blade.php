@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Penyampaian Document</title>
-
+    <title>E-DOK Kepegawaian Kemenag Bantul</title>
+            <link rel="icon" type="image/png" href="{{ asset('assets/img/kementrian2.png') }}" >
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
@@ -37,6 +37,8 @@
                 <a href="#" class="h1"><b>Login</b></a>
             </div>
             <div class="card-body">
+                <img src="{{ asset('assets/img/kementrian2.png') }}" class=" mx-auto d-block mb-3" width="35%"
+                height="100px" alt="">
                 <h6 class="login-box-msg">Selamat Datang di aplikasi penyampaian dokumen kepegawaian Kantor
                     Kementerian Agama Kabupaten Bantul</h6>
 
