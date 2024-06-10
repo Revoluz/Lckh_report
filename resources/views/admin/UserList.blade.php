@@ -127,7 +127,7 @@
                                 </div>
                             @enderror
                             <p class=" mb-0 text-danger">pastikan format file excel sesuai</p>
-                            <a href="{{ asset('example-excel/user-example-excel.ods') }}" download="user-test-excel.ods"
+                            <a href="{{ asset('example-excel/user-example-excel.ods') }}" download="user-example-excel.ods"
                                 class=" d-block text-md m-0">contoh format file excel</a>
                         </div>
                     </div>

@@ -265,12 +265,13 @@ class UserAdminController extends Controller
             $duplicates = array_unique($uniqueIdentifier);
         }
         $duplicateCount = count($duplicates);
-
-        // dd($duplicateCount);
-        if ($duplicateCount > 0) {
-            return back()->withErrors('Terdapat ' . $duplicateCount . ' data yang gagal di import.');
+            // dd($duplicateCount);
+            Storage::delete('public/excels/'. $excelName);
+            if ($duplicateCount > 0) {
+                return back()->withErrors('Terdapat ' . $duplicateCount . ' data yang gagal di import.');
+            }
         }
-        }
+        Storage::delete('public/excels/' . $excelName);
         return redirect()->back()->with('success', 'User berhasil ditambahkan!');
     }
 }
