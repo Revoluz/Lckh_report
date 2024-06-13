@@ -64,7 +64,7 @@
                                     <div class="d-md-flex" style="gap: 8px">
                                         <div class="flex-grow-1 form-group">
                                             <label for="tahun">Tahun:</label>
-                                            <input type="number" min="2023" class="form-control" id="tahun"
+                                            <input type="number" class="form-control" id="tahun"
                                                 name="tahun" />
                                         </div>
                                         <div class="flex-grow-2 form-group">

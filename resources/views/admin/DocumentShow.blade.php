@@ -71,7 +71,7 @@
                     <div class="col-lg-5">
                         <div class="card card-primary h-100">
                             <div class="card-header d-flex align-items-center">
-                                <h3 class="card-title">Informasi LCKH</h3>
+                                <h3 class="card-title">Informasi Dokumen</h3>
                             </div>
                             <div class="card-body d-flex flex-wrap align-content-start">
                                 <div class="form-group col-lg-6">
