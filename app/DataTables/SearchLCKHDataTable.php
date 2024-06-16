@@ -41,7 +41,8 @@ class SearchLCKHDataTable extends DataTable
                 // return $data->id;
             })
             ->addColumn('nip', function ($data) {
-                return $data->user->nip;
+            $nip = $data->user->nip;
+            return "$nip";
             })
             ->addColumn('name', function ($data) {
                 return $data->user->name;

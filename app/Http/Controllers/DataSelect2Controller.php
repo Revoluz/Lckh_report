@@ -11,6 +11,10 @@ class DataSelect2Controller extends Controller
 {
     public function dataUser(Request $request){
         $data = User::where('name','LIKE','%'. $request->input('q') .'%')->paginate(10);
+        foreach ($data as $nip) {
+            $nip->nip = "$nip->nip";
+        }
+        // dd($data);
         return response()->json($data);
     }
     public function dataWorkPlace(Request $request){

@@ -28,7 +28,8 @@ class SearchDocumentDataTable extends DataTable
             ->addColumn('name-user', function ($data) {
                 return $data->user->name;
             })->addColumn('nip', function ($data) {
-                return $data->user->nip;
+            $nip=$data->user->nip;
+            return "$nip";
             })->editColumn('document_date', function ($data) {
                 $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat(' MMMM YYYY'));
                 return $tanggal_upload;

@@ -27,6 +27,9 @@ class UserRoleDataTable extends DataTable
             ->addIndexColumn()
             ->editColumn('id', function ($data) {
                 return view('partials.datatable.Show-RoleUser', ['user' => $data]);
+            })
+            ->editColumn('nip',function($data){
+            return "$data->nip";
             });
     }
 
@@ -67,7 +70,7 @@ class UserRoleDataTable extends DataTable
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false),
             Column::make('name'),
-            Column::make('nip'),
+            Column::make('nip')->title('NIP'),
             Column::make('id')->title('Action')->searchable(false)->orderable(false),
         ];
     }

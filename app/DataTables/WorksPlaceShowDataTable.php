@@ -26,6 +26,8 @@ class WorksPlaceShowDataTable extends DataTable
         ->addIndexColumn()
         ->editColumn('id', function ($data) {
             return view('partials.datatable.Show-WorkPlaceShow', ['user' => $data]);
+        })->editColumn('nip', function ($data) {
+            return "$data->nip";
         });
     }
 

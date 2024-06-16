@@ -3,14 +3,15 @@
 namespace App\DataTables;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class UsersDataTable extends DataTable
 {
@@ -26,6 +27,9 @@ class UsersDataTable extends DataTable
             ->editColumn('id', function ($data) {
                 return view('partials.datatable.CRUD-User', ['user' => $data]);
                 // return $data;
+            })
+            ->editColumn('nip',function($data){
+                return "$data->nip" ;
             });
     }
 
@@ -81,7 +85,6 @@ class UsersDataTable extends DataTable
             Column::make('id')->title('Action')->orderable(false)->searchable(false)->exportable(false),
         ];
     }
-
     /**
      * Get the filename for export.
      */
