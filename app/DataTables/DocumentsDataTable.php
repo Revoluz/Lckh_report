@@ -28,7 +28,7 @@ class DocumentsDataTable extends DataTable
                 return $data->user->name;
             })->addColumn('nip', function ($data) {
             $nip = $data->user->nip;
-            return $nip ;
+            return "$nip" ;
             })->editColumn('document_date', function ($data) {
                 $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
                 return $tanggal_upload;

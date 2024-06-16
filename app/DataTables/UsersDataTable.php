@@ -9,7 +9,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
@@ -29,7 +28,9 @@ class UsersDataTable extends DataTable
                 // return $data;
             })
             ->editColumn('nip',function($data){
-                return "$data->nip" ;
+            // return "$data->nip";
+            // return NumberFormat::FORMAT_TEXT.$data->nip;
+            return "$data->nip";
             });
     }
 
@@ -85,6 +86,14 @@ class UsersDataTable extends DataTable
             Column::make('id')->title('Action')->orderable(false)->searchable(false)->exportable(false),
         ];
     }
+
+    // public function columnFormats(): array
+    // {
+    //     return [
+    //         'nip' => NumberFormat::FORMAT_TEXT,
+
+    //     ];
+    // }
     /**
      * Get the filename for export.
      */
