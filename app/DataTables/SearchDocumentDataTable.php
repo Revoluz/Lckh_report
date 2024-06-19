@@ -31,7 +31,7 @@ class SearchDocumentDataTable extends DataTable
             $nip=$data->user->nip;
             return "$nip";
             })->editColumn('document_date', function ($data) {
-                $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat(' MMMM YYYY'));
+                $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat(' MMMM YYYY'));
                 return $tanggal_upload;
             })->editColumn('created_at', function ($data) {
 
