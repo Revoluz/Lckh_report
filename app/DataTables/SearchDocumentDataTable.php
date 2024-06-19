@@ -35,7 +35,7 @@ class SearchDocumentDataTable extends DataTable
                 return $tanggal_upload;
             })->editColumn('created_at', function ($data) {
 
-                $tanggal_upload = ucfirst(Carbon::parse($data->upload_date)->locale('id')->isoFormat('DD MMMM YYYY'));
+                $tanggal_upload = ucfirst(Carbon::parse($data->created_at)->locale('id')->isoFormat('DD MMMM YYYY'));
                 return $tanggal_upload;
             })->editColumn('id', function ($data) {
                 return view('partials.datatable.CRUD-Document', ['data' => $data]);

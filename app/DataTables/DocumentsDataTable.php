@@ -30,8 +30,8 @@ class DocumentsDataTable extends DataTable
             $nip = $data->user->nip;
             return "$nip" ;
             })->editColumn('document_date', function ($data) {
-                $tanggal_upload = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
-                return $tanggal_upload;
+                $document_date = ucfirst(Carbon::parse($data->document_date)->locale('id')->isoFormat('MMMM YYYY'));
+                return $document_date;
             })->editColumn('created_at', function ($data) {
                 $tanggal_upload = ucfirst(Carbon::parse($data->created_at)->locale('id')->isoFormat('DD MMMM YYYY'));
                 return $tanggal_upload;

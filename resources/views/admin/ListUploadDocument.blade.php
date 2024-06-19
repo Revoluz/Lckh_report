@@ -125,7 +125,7 @@
 
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <h3 class="card-title">List Kirim LCKH</h3>
+                                <h3 class="card-title">List Kirim Dokumen</h3>
                                 <br />
                                 {{ $dataTable->table() }}
                             </div>
