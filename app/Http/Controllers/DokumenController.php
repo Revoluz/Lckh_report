@@ -61,7 +61,7 @@ class DokumenController extends Controller
             'tipe_dokumen' => 'required',
             'deskripsi' => 'nullable',
             'dokumen_bulan' => 'required|date_format:Y-m',
-            'upload_dokumen' => 'required|file|mimes:pdf|max:2048',
+            'upload_dokumen' => 'required|file|mimes:pdf|max:20480',
         ];
 
         $messages = [
